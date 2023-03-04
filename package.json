@@ -1,0 +1,23 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "* Figma\r * Картинки",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/bemify styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Teprol/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Teprol/mesto/issues"
+  },
+  "homepage": "https://github.com/Teprol/mesto#readme",
+  "devDependencies": {
+    "css-to-bem-file-structure": "0.0.5"
+  }
+}
