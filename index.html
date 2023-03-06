@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css" />
+</head>
+
+<body class="page">
+  <header class="header">
+    <!--? тут может переписать? -->
+    <div class="header__logo-container">
+      <!-- <img class="logo" src="./source/icons/logo.svg" alt="логотип" /> -->
+      <svg class="logo">
+        <use xlink:href="./source/icons/sprite.svg#logo"></use>
+      </svg>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="profile">
+      <div class="profile__container">
+        <div class="avatar">
+          <img src="./source/images/image.jpg" alt="аватарка автора" class="avatar__image image" />
+        </div>
+        <div class="profile-info">
+          <div class="profile-info__header">
+            <h1 class="profile-info__name">Жак-Ив Кусто</h1>
+            <button class="edit-button">
+              <svg>
+                <use xlink:href="./source/icons/sprite.svg#edit"></use>
+              </svg>
+            </button>
+          </div>
+          <p class="profile-info__description">Исследователь океана</p>
+        </div>
+      </div>
+      <button class="add-button">
+        <svg>
+          <use xlink:href="./source/icons/sprite.svg#add"></use>
+        </svg>
+      </button>
+    </section>
+    <section class="elements">
+      <ul class="elements__list list">
+        <li class="elements__item">
+          <article class="element">
+            <div class="element__image-container">
+              <img src="./source/images/Karachaevsk.jpg" alt="Карачаевск" class="element__image image" />
+            </div>
+            <div class="element__content-container">
+              <h2 class="element__title">Карачаевск</h2>
+              <button class="element__like">
+                <svg>
+                  <use xlink:href="./source/icons/sprite.svg#like"></use>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </li>
+        <li class="elements__item">
+          <article class="element">
+            <div class="element__image-container">
+              <img src="./source/images/Elbrus.jpg" alt="Эльбрус" class="element__image image" />
+            </div>
+            <div class="element__content-container">
+              <h2 class="element__title">Гора Эльбрус</h2>
+              <button class="element__like">
+                <svg>
+                  <use xlink:href="./source/icons/sprite.svg#like"></use>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </li>
+        <li class="elements__item">
+          <article class="element">
+            <div class="element__image-container">
+              <img src="./source/images/dombay.jpg" alt="Донбай" class="element__image image" />
+            </div>
+            <div class="element__content-container">
+              <h2 class="element__title">Домбай</h2>
+              <button class="element__like">
+                <svg>
+                  <use xlink:href="./source/icons/sprite.svg#like"></use>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </li>
+        <li class="elements__item">
+          <article class="element">
+            <div class="element__image-container">
+              <img src="./source/images/SydneyOpera.jpg" alt="Сидней опера" class="element__image image" />
+            </div>
+            <div class="element__content-container">
+              <h2 class="element__title">Сидней опера</h2>
+              <button class="element__like">
+                <svg>
+                  <use xlink:href="./source/icons/sprite.svg#like"></use>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </li>
+        <li class="elements__item">
+          <article class="element">
+            <div class="element__image-container">
+              <img src="./source/images/Turin.jpg" alt="Турин" class="element__image image" />
+            </div>
+            <div class="element__content-container">
+              <h2 class="element__title">Турин</h2>
+              <button class="element__like">
+                <svg>
+                  <use xlink:href="./source/icons/sprite.svg#like"></use>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </li>
+        <li class="elements__item">
+          <article class="element">
+            <div class="element__image-container">
+              <img src="./source/images/Yoismiti.jpg" alt="Йосемити национальный парк в США"
+                class="element__image image" />
+            </div>
+            <div class="element__content-container">
+              <h2 class="element__title">Йосемити</h2>
+              <button class="element__like">
+                <svg>
+                  <use xlink:href="./source/icons/sprite.svg#like"></use>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+  </footer>
+
+  <section class="popup-edit-profile">
+    <form class="popup-edit-profile__form" action="#" name="edit-profile" method="post">
+      <fieldset class="popup-edit-profile__container">
+        <legend class="popup-edit-profile__title">
+          Редактировать профиль
+        </legend>
+        <input class="popup-edit-profile__name" type="text" placeholder="Введите ваше имя" />
+        <input class="popup-edit-profile__hobby" type="text" placeholder="Введите ваше хоби" />
+        <input class="popup-edit-profile__save" type="submit" value="Сохранить" />
+        <button class="popup-edit-profile__close">
+          <svg>
+            <use xlink:href="./source/icons/sprite.svg#close"></use>
+          </svg>
+        </button>
+      </fieldset>
+    </form>
+  </section>
+</body>
+
+</html>

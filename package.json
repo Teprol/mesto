@@ -4,8 +4,8 @@
   "description": "* Figma\r * Картинки",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/bemify styles.css"
+    "start": "./node_modules/.bin/bemify style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
