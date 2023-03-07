@@ -1,1 +1,8 @@
-.popup-edit-profile__close {}
+.popup-edit-profile__close {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  position: absolute;
+  top: -36px;
+  right: 0;
+}

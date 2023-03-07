@@ -1,1 +1,12 @@
-.profile-info {}
+.profile-info {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .profile-info {
+    width: auto;
+    text-align: initial;
+  }
+}

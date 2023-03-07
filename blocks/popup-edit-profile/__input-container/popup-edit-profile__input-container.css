@@ -1,0 +1,8 @@
+.popup-edit-profile__input-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+
+  margin-bottom: 46px;
+}

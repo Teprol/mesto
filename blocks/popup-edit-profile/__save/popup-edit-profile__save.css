@@ -1,1 +1,15 @@
-.popup-edit-profile__save {}
+.popup-edit-profile__save {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: var(--page-background-color);
+  border: none;
+  padding: 14px 0;
+
+  color: var(--font-main-color);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+}

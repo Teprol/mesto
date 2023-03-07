@@ -1,1 +1,10 @@
-.popup-edit-profile__form {}
+.popup-edit-profile__form {
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: 25px 22px;
+  position: relative;
+
+  background-color: var(--popup-background-color);
+  color: black;
+  border-radius: 10px;
+}

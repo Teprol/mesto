@@ -1,1 +1,4 @@
-.element__image-container {}
+.element__image-container {
+  box-sizing: border-box;
+  height: 282px;
+}

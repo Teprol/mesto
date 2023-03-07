@@ -1,1 +1,19 @@
-.profile-info__description {}
+.profile-info__description {
+  box-sizing: border-box;
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (1280 - 320)));
+  line-height: calc(22px + (22 - 17) * ((100vw - 320px) / (1280 - 320)));
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1024px) {
+  .profile-info__description {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

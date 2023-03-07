@@ -9,19 +9,17 @@
   <link rel="stylesheet" href="./pages/index.css" />
 </head>
 
-<body class="page">
-  <header class="header">
-    <!--? тут может переписать? -->
-    <div class="header__logo-container">
-      <!-- <img class="logo" src="./source/icons/logo.svg" alt="логотип" /> -->
-      <svg class="logo">
+<body class="page container container_page">
+  <header class="header page__header">
+    <a class="logo" href="#">
+      <svg class="svg">
         <use xlink:href="./source/icons/sprite.svg#logo"></use>
       </svg>
-    </div>
+    </a>
   </header>
 
-  <main class="main">
-    <section class="profile">
+  <main class="main container page__main">
+    <section class="profile main__profile">
       <div class="profile__container">
         <div class="avatar">
           <img src="./source/images/image.jpg" alt="аватарка автора" class="avatar__image image" />
@@ -29,8 +27,8 @@
         <div class="profile-info">
           <div class="profile-info__header">
             <h1 class="profile-info__name">Жак-Ив Кусто</h1>
-            <button class="edit-button">
-              <svg>
+            <button class="edit-button button">
+              <svg class="svg">
                 <use xlink:href="./source/icons/sprite.svg#edit"></use>
               </svg>
             </button>
@@ -38,8 +36,8 @@
           <p class="profile-info__description">Исследователь океана</p>
         </div>
       </div>
-      <button class="add-button">
-        <svg>
+      <button class="add-button button">
+        <svg class="svg svg_add-button">
           <use xlink:href="./source/icons/sprite.svg#add"></use>
         </svg>
       </button>
@@ -52,9 +50,9 @@
               <img src="./source/images/Karachaevsk.jpg" alt="Карачаевск" class="element__image image" />
             </div>
             <div class="element__content-container">
-              <h2 class="element__title">Карачаевск</h2>
-              <button class="element__like">
-                <svg>
+              <h2 class="element__title">Карачаево-Черкессия</h2>
+              <button class="element__like button">
+                <svg class="svg">
                   <use xlink:href="./source/icons/sprite.svg#like"></use>
                 </svg>
               </button>
@@ -68,8 +66,8 @@
             </div>
             <div class="element__content-container">
               <h2 class="element__title">Гора Эльбрус</h2>
-              <button class="element__like">
-                <svg>
+              <button class="element__like button">
+                <svg class="svg">
                   <use xlink:href="./source/icons/sprite.svg#like"></use>
                 </svg>
               </button>
@@ -83,8 +81,8 @@
             </div>
             <div class="element__content-container">
               <h2 class="element__title">Домбай</h2>
-              <button class="element__like">
-                <svg>
+              <button class="element__like button">
+                <svg class="svg">
                   <use xlink:href="./source/icons/sprite.svg#like"></use>
                 </svg>
               </button>
@@ -98,8 +96,8 @@
             </div>
             <div class="element__content-container">
               <h2 class="element__title">Сидней опера</h2>
-              <button class="element__like">
-                <svg>
+              <button class="element__like button">
+                <svg class="svg">
                   <use xlink:href="./source/icons/sprite.svg#like"></use>
                 </svg>
               </button>
@@ -113,8 +111,8 @@
             </div>
             <div class="element__content-container">
               <h2 class="element__title">Турин</h2>
-              <button class="element__like">
-                <svg>
+              <button class="element__like button">
+                <svg class="svg">
                   <use xlink:href="./source/icons/sprite.svg#like"></use>
                 </svg>
               </button>
@@ -129,8 +127,8 @@
             </div>
             <div class="element__content-container">
               <h2 class="element__title">Йосемити</h2>
-              <button class="element__like">
-                <svg>
+              <button class="element__like button">
+                <svg class="svg">
                   <use xlink:href="./source/icons/sprite.svg#like"></use>
                 </svg>
               </button>
@@ -141,21 +139,23 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer container">
     <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
   </footer>
 
-  <section class="popup-edit-profile">
+  <section class="popup-edit-profile container" aria-label="Форма редактирования профиля">
     <form class="popup-edit-profile__form" action="#" name="edit-profile" method="post">
       <fieldset class="popup-edit-profile__container">
-        <legend class="popup-edit-profile__title">
+        <h2 class="popup-edit-profile__title">
           Редактировать профиль
-        </legend>
-        <input class="popup-edit-profile__name" type="text" placeholder="Введите ваше имя" />
-        <input class="popup-edit-profile__hobby" type="text" placeholder="Введите ваше хоби" />
+        </h2>
+        <div class="popup-edit-profile__input-container">
+          <input class="popup-edit-profile__name input" type="text" placeholder="Введите ваше имя" />
+          <input class="popup-edit-profile__hobby input" type="text" placeholder="Введите ваше хоби" />
+        </div>
         <input class="popup-edit-profile__save" type="submit" value="Сохранить" />
-        <button class="popup-edit-profile__close">
-          <svg>
+        <button class="popup-edit-profile__close button">
+          <svg class="svg">
             <use xlink:href="./source/icons/sprite.svg#close"></use>
           </svg>
         </button>

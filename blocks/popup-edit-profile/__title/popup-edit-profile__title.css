@@ -1,1 +1,11 @@
-.popup-edit-profile__title {}
+.popup-edit-profile__title {
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 22px;
+  padding-inline-start: initial;
+  padding-inline-end: initial;
+
+  margin-bottom: 75px;
+}

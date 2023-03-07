@@ -7,11 +7,19 @@
 @import url("../vendor/vendors.css");
 
 /** общие стили */
+@import url("../blocks/container/container.css");
+@import url("../blocks/container/_page/container_page.css");
 @import url("../blocks/list/list.css");
 @import url("../blocks/image/image.css");
+@import url("../blocks/svg/svg.css");
+@import url("../blocks/svg/_add-button/svg_add-button.css");
+@import url("../blocks/button/button.css");
+@import url("../blocks/input/input.css");
 
 /** body */
 @import url("../blocks/page/page.css");
+@import url("../blocks/page/__header/page__header.css");
+@import url("../blocks/page/__main/page__main.css");
 
 /** header */
 @import url("../blocks/header/header.css");
@@ -19,10 +27,11 @@
 
 /** main */
 @import url("../blocks/main/main.css");
+@import url("../blocks/main/__profile/main__profile.css");
 
 /** профиль */
 @import url("../blocks/profile/profile.css");
-@import url("../blocks/profile/_container/profile__container.css");
+@import url("../blocks/profile/__container/profile__container.css");
 @import url("../blocks/avatar/avatar.css");
 @import url("../blocks/avatar/__image/avatar__image.css");
 @import url("../blocks/profile-info/profile-info.css");
@@ -43,7 +52,7 @@
 @import url("../blocks/element/__image/element__image.css");
 @import url("../blocks/element/__content-container/element__content-container.css");
 @import url("../blocks/element/__title/element__title.css");
-@import url("../blocks/element/__icon/element__icon.css");
+@import url("../blocks/element/__like/element__like.css");
 
 /** footer */
 @import url("../blocks/footer/footer.css");
@@ -53,6 +62,7 @@
 @import url("../blocks/popup-edit-profile/popup-edit-profile.css");
 @import url("../blocks/popup-edit-profile/__form/popup-edit-profile__form.css");
 @import url("../blocks/popup-edit-profile/__container/popup-edit-profile__container.css");
+@import url("../blocks/popup-edit-profile/__input-container/popup-edit-profile__input-container.css");
 @import url("../blocks/popup-edit-profile/__title/popup-edit-profile__title.css");
 @import url("../blocks/popup-edit-profile/__name/popup-edit-profile__name.css");
 @import url("../blocks/popup-edit-profile/__hobby/popup-edit-profile__hobby.css");
