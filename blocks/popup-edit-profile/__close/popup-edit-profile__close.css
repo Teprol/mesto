@@ -6,3 +6,12 @@
   top: -36px;
   right: 0;
 }
+
+@media screen and (min-width: 520px) {
+  .popup-edit-profile__close {
+    width: 32px;
+    height: 32px;
+    top: -42px;
+    right: -40px;
+  }
+}

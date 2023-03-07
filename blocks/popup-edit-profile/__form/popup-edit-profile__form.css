@@ -1,4 +1,6 @@
 .popup-edit-profile__form {
+  min-width: 282px;
+  max-width: 430px;
   flex-grow: 1;
   box-sizing: border-box;
   padding: 25px 22px;
@@ -7,4 +9,10 @@
   background-color: var(--popup-background-color);
   color: black;
   border-radius: 10px;
+}
+
+@media screen and (min-width: 460px) {
+  .popup-edit-profile__form {
+    padding: 34px 36px 37px;
+  }
 }
