@@ -1,0 +1,6 @@
+.hover:hover,
+.hover:focus,
+.hover:active {
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}

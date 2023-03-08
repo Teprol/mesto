@@ -2,4 +2,11 @@
   box-sizing: border-box;
   width: 22px;
   height: 19px;
+  fill: #fff;
+}
+
+.element__like:hover,
+.element__like:focus {
+  opacity: 0.5;
+  transition: opacity 0.3s;
 }
