@@ -1,10 +1,9 @@
 .popup__save {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  padding: 14px 0;
   background-color: var(--page-background-color);
   border: none;
-  padding: 14px 0;
   border-radius: 2px;
 
   color: var(--font-main-color);
@@ -24,10 +23,9 @@
   }
 }
 
-
 .popup__save:hover,
 .popup__save:active,
 .popup__save:focus {
   background-color: #000000cc;
-  transition: background-color .34s;
+  transition: background-color 0.34s;
 }

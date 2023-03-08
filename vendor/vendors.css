@@ -1,12 +1,9 @@
 :root {
   --page-background-color: #000;
   --card-background-color: #fff;
-
   --font-main-color: #fff;
   --font-card-color: #000;
-
   --font-color-footer: #545454;
   --color-border: #545454b3;
-
   --popup-background-color: #fff;
 }
