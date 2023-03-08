@@ -1,4 +1,4 @@
-.popup-edit-profile__input-container {
+.popup__input-container {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (min-width: 460px) {
-  .popup-edit-profile__input-container {
+  .popup__input-container {
     row-gap: 34px;
   }
 }

@@ -1,4 +1,4 @@
-.popup-edit-profile__close {
+.popup__close {
   width: 20px;
   height: 20px;
   background-color: transparent;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (min-width: 520px) {
-  .popup-edit-profile__close {
+  .popup__close {
     width: 32px;
     height: 32px;
     top: -42px;

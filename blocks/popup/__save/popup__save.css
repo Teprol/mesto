@@ -1,4 +1,4 @@
-.popup-edit-profile__save {
+.popup__save {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (min-width: 460px) {
-  .popup-edit-profile__save {
+  .popup__save {
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
