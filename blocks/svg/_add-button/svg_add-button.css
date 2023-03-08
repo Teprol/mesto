@@ -1,5 +1,0 @@
-.svg_add-button {
-  width: calc(16px + (22 - 16) * ((100vw - 320px) / (1280 - 320)));
-  height: calc(16px + (22 - 16) * ((100vw - 320px) / (1280 - 320)));
-  margin: 0 auto;
-}

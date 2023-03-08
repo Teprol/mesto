@@ -3,6 +3,8 @@
   width: 22px;
   height: 19px;
   fill: #fff;
+
+  background: url("../../../source/icons/like.svg");
 }
 
 .element__like:hover,

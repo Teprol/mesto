@@ -5,6 +5,9 @@
   position: absolute;
   top: -36px;
   right: 0;
+
+  background: url("../../../source/icons/close-Icon.svg") center;
+  background-size: cover;
 }
 
 @media screen and (min-width: 520px) {
