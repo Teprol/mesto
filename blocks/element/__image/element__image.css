@@ -1,1 +1,4 @@
-.element__image {}
+.element__image {
+  box-sizing: border-box;
+  height: 282px;
+}

@@ -7,7 +7,7 @@
   border: 2px solid var(--font-main-color);
   border-radius: 2px;
 
-  background: url("../../source/icons/add.svg") center no-repeat;
+  background: url("../../images/add.svg") center no-repeat;
   background-size: 16px 16px;
 }
 

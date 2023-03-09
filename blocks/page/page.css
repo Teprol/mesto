@@ -6,4 +6,12 @@
   background-color: var(--page-background-color);
   color: var(--font-main-color);
   font-family: "Inter", Arial, sans-serif;
+
+  padding: 0 calc(0px + (200 - 0) * ((100vw - 880px) / (1280 - 880)));
+}
+
+@media screen and (min-width: 1280px) {
+  .page {
+    padding: 0 200px;
+  }
 }

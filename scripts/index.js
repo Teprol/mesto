@@ -15,23 +15,16 @@ let profile = document.querySelector(".profile");
 let profileName = profile.querySelector(".profile-info__name");
 let profileDescription = profile.querySelector(".profile-info__description");
 
-// текст из профиля в поля попапа
-const getTextProfile = function () {
-  popupInputName.value = profileName.textContent;
-  popupInputDescription.value = profileDescription.textContent;
-};
-getTextProfile();
-
 // открытие попапа
 buttonEditPopup.addEventListener("click", function () {
   popup.classList.add("popup_opened");
+  popupInputName.value = profileName.textContent;
+  popupInputDescription.value = profileDescription.textContent;
 });
 
 // закрытие попапа
-buttonClosePopup.addEventListener("click", function (evt) {
-  evt.preventDefault();
+buttonClosePopup.addEventListener("click", function () {
   popup.classList.remove("popup_opened");
-  getTextProfile();
 });
 
 // отправка формы и сохранение текста в input
@@ -40,4 +33,5 @@ form.addEventListener("submit", function(evt) {
 
   profileName.textContent = popupInputName.value;
   profileDescription.textContent =  popupInputDescription.value;
+  popup.classList.remove("popup_opened");
 });
