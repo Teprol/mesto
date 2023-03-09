@@ -6,9 +6,9 @@ let buttonEditPopup = document.querySelector(".edit-button");
 let buttonClosePopup = popup.querySelector(".popup__close");
 
 // форма
-let form = popup.querySelector(".popup__container");
-let popupInputName = popup.querySelector(".popup__name");
-let popupInputDescription = popup.querySelector(".popup__hobby");
+let form = popup.querySelector(".popup__form");
+let popupInputName = popup.querySelector(".popup__input_name");
+let popupInputDescription = popup.querySelector(".popup__input_description");
 
 // профиль
 let profile = document.querySelector(".profile");
