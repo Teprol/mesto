@@ -32,9 +32,10 @@
     </section>
     <section class="elements">
       <ul class="elements__list list">
-        <li class="elements__item">
+        <!-- <li class="elements__item">
           <article class="element">
             <img src="./images/Karachaevsk.jpg" alt="Карачаевск" class="element__image image" />
+            <button class="element__button-close button hover" type="button"></button>
             <div class="element__content-container">
               <h2 class="element__title">Карачаево-Черкессия</h2>
               <button class="element__like button" type="button"></button>
@@ -79,14 +80,13 @@
         </li>
         <li class="elements__item">
           <article class="element">
-            <img src="./images/Yoismiti.jpg" alt="Йосемити национальный парк в США"
-              class="element__image image" />
+            <img src="./images/Yoismiti.jpg" alt="Йосемити национальный парк в США" class="element__image image" />
             <div class="element__content-container">
               <h2 class="element__title">Йосемити</h2>
               <button class="element__like button" type="button"></button>
             </div>
           </article>
-        </li>
+        </li> -->
       </ul>
     </section>
   </main>
@@ -102,14 +102,30 @@
         <fieldset class="popup__fieldset">
           <h2 class="popup__title">Редактировать профиль</h2>
           <div class="popup__input-container">
-            <input class="popup__input popup__input_name input" type="text" placeholder="Введите ваше имя" name="profile-name" />
-            <input class="popup__input popup__input_description input" type="text" placeholder="Введите ваше хоби" name="profile-description" />
+            <input class="popup__input popup__input_name input" type="text" placeholder="Введите ваше имя"
+              name="profile-name" />
+            <input class="popup__input popup__input_description input" type="text" placeholder="Введите ваше хоби"
+              name="profile-description" />
           </div>
           <input class="popup__save" type="submit" value="Сохранить" />
         </fieldset>
       </form>
     </div>
   </section>
+
+  <template id="cards">
+    <li class="elements__item">
+      <article class="element">
+        <img src="#" alt="#" class="element__image image" />
+        <button class="element__button-close button hover" type="button"></button>
+        <div class="element__content-container">
+          <h2 class="element__title">#</h2>
+          <button class="element__like button" type="button"></button>
+        </div>
+      </article>
+    </li>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 
