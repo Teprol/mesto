@@ -28,43 +28,61 @@ const initialCards = [
   },
 ];
 
-// попап
-const popup = document.querySelector(".popup");
+//* попап профиля
+const popupProfile = document.querySelector(".popup_profile");
 const buttonEditPopup = document.querySelector(".edit-button");
-const buttonClosePopup = popup.querySelector(".popup__close");
-
 // форма
-const form = popup.querySelector(".popup__form");
-const popupInputName = popup.querySelector(".popup__input_name");
-const popupInputDescription = popup.querySelector(".popup__input_description");
-
+const form = popupProfile.querySelector(".popup__form");
+const popupInputName = popupProfile.querySelector(".popup__input_name");
+const popupInputDescription = popupProfile.querySelector(".popup__input_description");
 // профиль
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile-info__name");
 const profileDescription = profile.querySelector(".profile-info__description");
+//* попап добавления карточки
+const popupCard = document.querySelector(".popup_card");
+const buttonAddCard = document.querySelector(".profile__add-button");
 
-// открытие попапа
-buttonEditPopup.addEventListener("click", function () {
-  popup.classList.add("popup_opened");
+// функция открытия попапа
+const openPopup = function (namePopup) {
+  namePopup.classList.add("popup_opened");
+};
+
+// функция закрытия попапов
+const closePopup = function () {
+  // получим псевдомассив всех кнопок закрытия попапов
+  listCloseButtons = document.querySelectorAll(".popup .popup__close");
+  // переберем его присваивая каждой кнопке функционал
+  listCloseButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const perentPopup = button.parentElement.parentElement;
+      perentPopup.classList.remove("popup_opened");
+    });
+  });
+};
+closePopup();
+
+// открытие попапа профиля
+buttonEditPopup.addEventListener("click", () => {
+  openPopup(popupProfile);
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDescription.textContent;
 });
 
-// закрытие попапа
-buttonClosePopup.addEventListener("click", function () {
-  popup.classList.remove("popup_opened");
-});
-
-// отправка формы и сохранение текста в input
-form.addEventListener("submit", function (evt) {
+// отправка формы редактирования профиля и сохранение текста в input
+form.addEventListener("submit", (evt) => {
   evt.preventDefault();
-
   profileName.textContent = popupInputName.value;
   profileDescription.textContent = popupInputDescription.value;
-  popup.classList.remove("popup_opened");
+  popupProfile.classList.remove("popup_opened");
 });
 
-//* функция рендера карточки
+// открытие попапа создания карточек
+buttonAddCard.addEventListener('click', () => {
+  openPopup(popupCard);
+});
+
+// функция рендера карточки
 const renderCard = function (element) {
   // список карточек
   const listCards = document.querySelector(".elements__list");
