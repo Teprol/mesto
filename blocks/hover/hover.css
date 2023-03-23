@@ -1,6 +1,4 @@
-.hover:hover,
-.hover:focus,
-.hover:active {
+.hover:hover {
   opacity: 0.6;
   transition: opacity 0.3s;
 }
