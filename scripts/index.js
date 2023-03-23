@@ -42,6 +42,9 @@ const profileDescription = profile.querySelector(".profile-info__description");
 //* попап добавления карточки
 const popupCard = document.querySelector(".popup_card");
 const buttonAddCard = document.querySelector(".profile__add-button");
+const cardSave = popupCard.querySelector(".popup__form");
+const cardTitle = popupCard.querySelector(".popup__input_name");
+const cardlinkImage = popupCard.querySelector(".popup__input_description");
 
 // функция открытия попапа
 const openPopup = function (namePopup) {
@@ -94,10 +97,21 @@ const renderCard = function (element) {
   const title = card.querySelector(".element__title");
 
   image.src = element.link;
+  image.alt = element.name;
   title.textContent = element.name;
 
-  listCards.append(card);
+  listCards.prepend(card);
 };
+
+// сохранение карточки
+cardSave.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  const userCards = {name: cardTitle.value, link: cardlinkImage.value};
+  renderCard(userCards);
+  popupCard.classList.remove("popup_opened");
+  cardTitle.value = '';
+  cardlinkImage.value = '';
+});
 
 // создадим карточки из массива
 initialCards.forEach((item) => {
