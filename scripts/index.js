@@ -34,9 +34,7 @@ const buttonEditPopup = document.querySelector(".edit-button");
 // форма
 const form = popupProfile.querySelector(".popup__form");
 const popupInputName = popupProfile.querySelector(".popup__input_name");
-const popupInputDescription = popupProfile.querySelector(
-  ".popup__input_description"
-);
+const popupInputDescription = popupProfile.querySelector(".popup__input_description");
 // профиль
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile-info__name");
@@ -47,6 +45,10 @@ const buttonAddCard = document.querySelector(".profile__add-button");
 const cardSave = popupCard.querySelector(".popup__form");
 const cardTitle = popupCard.querySelector(".popup__input_name");
 const cardlinkImage = popupCard.querySelector(".popup__input_description");
+//* попап полной картинки
+const popupOpenImage = document.querySelector(".popup_image-open")
+const popupImageLink = popupOpenImage.querySelector(".popup__image");
+const popupImageTitle = popupOpenImage.querySelector(".popup__image-title");
 
 // функция открытия попапа
 const openPopup = function (namePopup) {
@@ -108,6 +110,14 @@ const renderCard = function (element) {
   // событие удаление карточки
   trash.addEventListener("click", () => {
     card.remove();
+  });
+
+  // откытие картинки
+  image.addEventListener("click", () => {
+    openPopup(popupOpenImage);
+    popupImageLink.src = image.src;
+    popupImageLink.alt = title.textContent;
+    popupImageTitle.textContent = title.textContent;
   });
 
   image.src = element.link;
