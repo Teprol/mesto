@@ -3,9 +3,10 @@
 const popupProfile = document.querySelector(".popup_profile");
 const buttonEditPopup = document.querySelector(".edit-button");
 // форма
-const formProfileEditing = popupProfile.querySelector(".popup__form"); //? поиск и так ограничен не всем документом а конкретным попапом, возможно вы не заметили
+const formProfileEditing = popupProfile.querySelector(".popup__form");
 const popupInputName = popupProfile.querySelector(".popup__input_name");
 const popupInputDescription = popupProfile.querySelector(".popup__input_description");
+const submitProfile = popupProfile.querySelector('.popup__save'); //!кнопка сохранения профиля
 // профиль
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile-info__name");
@@ -16,6 +17,7 @@ const buttonAddCard = document.querySelector(".profile__add-button");
 const formCardSave = popupCard.querySelector(".popup__form");
 const cardTitle = popupCard.querySelector(".popup__input_name");
 const cardlinkImage = popupCard.querySelector(".popup__input_description");
+const submitCard = popupCard.querySelector('.popup__save'); //!кнопка сохранения Карточки
 //* попап полной картинки
 const popupOpenImage = document.querySelector(".popup_image-open")
 const popupImageLink = popupOpenImage.querySelector(".popup__image");
@@ -54,6 +56,9 @@ buttonEditPopup.addEventListener("click", () => {
   openPopup(popupProfile);
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDescription.textContent;
+
+  const inputList = Array.from(popupProfile.querySelectorAll(validationConfig.inputSelector));
+  toggleButton(inputList, submitProfile, validationConfig);
 });
 
 // отправка формы редактирования профиля и сохранение текста в input
@@ -68,6 +73,9 @@ formProfileEditing.addEventListener("submit", (evt) => {
 // открытие попапа создания карточек
 buttonAddCard.addEventListener("click", () => {
   openPopup(popupCard);
+
+  const inputList = Array.from(popupCard.querySelectorAll(validationConfig.inputSelector));
+  toggleButton(inputList, submitCard, validationConfig);
 });
 
 // функция добавления карточки в разметку
