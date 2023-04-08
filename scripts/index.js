@@ -30,11 +30,32 @@ const cardTemplate = document.querySelector("#cards").content;
 // функция открытия попапа
 const openPopup = function (namePopup) {
   namePopup.classList.add("popup_opened");
+  document.addEventListener('keydown', closeESC);
 };
 
 const closePopupSubmit = function (popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closeESC);
 };
+
+//закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
+const closeESC = (evt) => {
+  const openPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    openPopup.classList.remove('popup_opened');
+  }
+};
+
+//закрытие при клике мимо попапа
+const clickNoEverley = () => {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((popup) => {
+    popup.addEventListener('mousedown', (e) => { //!или может клик
+      e.target === popup ? closePopupSubmit(popup) : null;
+    });
+  });
+};
+clickNoEverley();
 
 // функция закрытия попапов
 const closePopup = function () {
