@@ -33,18 +33,19 @@ const openPopup = function (namePopup) {
   document.addEventListener('keydown', closeESC);
 };
 
-const closePopupSubmit = function (popup) {
+const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', closeESC);
 
-  resetErorr(popup);
+  resetErorr(popup, validationConfig);
 };
 
 //закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
 const closeESC = (evt) => {
-  const openPopup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    openPopup.classList.remove('popup_opened');
+    const openPopup = document.querySelector('.popup_opened');
+    // openPopup.classList.remove('popup_opened');
+    closePopup(openPopup);
   }
 };
 
@@ -53,14 +54,17 @@ const clickNoEverley = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popup) => {
     popup.addEventListener('mousedown', (e) => { //!или может клик
-      e.target === popup ? closePopupSubmit(popup) : null;
+      // e.target === popup ? closePopup(popup) : null;
+      if (e.target === popup) {
+        closePopup(popup)
+      };
     });
   });
 };
 clickNoEverley();
 
 // функция закрытия попапов
-const closePopup = function () {
+const addListenerButtonClose = function () {
   // получим псевдомассив всех кнопок закрытия попапов
   listCloseButtons = document.querySelectorAll(".popup .popup__close");
   // переберем его присваивая каждой кнопке функционал
@@ -68,11 +72,11 @@ const closePopup = function () {
     button.addEventListener("click", () => {
       const perentPopup = button.closest(".popup");
       // perentPopup.classList.remove("popup_opened");
-      closePopupSubmit(perentPopup);
+      closePopup(perentPopup);
     });
   });
 };
-closePopup();
+addListenerButtonClose();
 
 // открытие попапа профиля
 buttonEditPopup.addEventListener("click", () => {
@@ -90,7 +94,7 @@ formProfileEditing.addEventListener("submit", (evt) => {
   profileName.textContent = popupInputName.value;
   profileDescription.textContent = popupInputDescription.value;
   // popupProfile.classList.remove("popup_opened");
-  closePopupSubmit(popupProfile);
+  closePopup(popupProfile);
 });
 
 // открытие попапа создания карточек
@@ -98,9 +102,9 @@ buttonAddCard.addEventListener("click", () => {
   openPopup(popupCard);
 
   const inputList = Array.from(popupCard.querySelectorAll(validationConfig.inputSelector));
-  toggleButton(inputList, submitCard, validationConfig);
   cardTitle.value = '';
   cardlinkImage.value = '';
+  toggleButton(inputList, submitCard, validationConfig);
 });
 
 // функция добавления карточки в разметку
@@ -149,7 +153,7 @@ formCardSave.addEventListener("submit", (evt) => {
   const userCards = { name: cardTitle.value, link: cardlinkImage.value };
   // renderCard(userCards);
   addCardHtml(renderCard(userCards));
-  closePopupSubmit(popupCard);
+  closePopup(popupCard);
   cardTitle.value = "";
   cardlinkImage.value = "";
 });

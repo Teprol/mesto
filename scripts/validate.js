@@ -32,26 +32,38 @@ const setEventListenerInput = (formValid, object) => {
 
 //* функция проверки инпута на валидность
 const checkInputValid = (input, object) => {
-  const inputError = document.querySelector(`.${input.id}-error`);
   //! дальше делаем проверку поля если оно валидно, то показываем ошибку и присваеваем текст ошибки спану
   if (input.validity.valid) {
-    input.classList.remove(`${object.inputErrorClass}`)
-    inputError.classList.remove(`${object.errorClass}`);
-    inputError.textContent = ``;
+    hideInputError(input, object);
   } else {
-    input.classList.add(`${object.inputErrorClass}`)
-    inputError.classList.add(`${object.errorClass}`);
-    inputError.textContent = input.validationMessage;
+    showInputError(input, object);
   }
 };
 
-const resetErorr = (popup) => {
+// показать ошибку
+const showInputError = (input, object) => {
+  const inputError = document.querySelector(`.${input.id}-error`);
+  input.classList.add(`${object.inputErrorClass}`)
+  inputError.classList.add(`${object.errorClass}`);
+  inputError.textContent = input.validationMessage;
+}
+
+// скрыть ошибку
+const hideInputError = (input, object) => {
+  const inputError = document.querySelector(`.${input.id}-error`);
+  input.classList.remove(`${object.inputErrorClass}`)
+  inputError.classList.remove(`${object.errorClass}`);
+  inputError.textContent = ``;
+}
+
+const resetErorr = (popup, object) => {
   const inputList = Array.from(popup.querySelectorAll(validationConfig.inputSelector));
   inputList.forEach((input) => {
-    const inputError = document.querySelector(`.${input.id}-error`);
-    input.classList.remove(validationConfig.inputErrorClass);
-    inputError.classList.remove(validationConfig.errorClass);
-    inputError.textContent = ``;
+    hideInputError(input, object);
+    // const inputError = document.querySelector(`.${input.id}-error`);
+    // input.classList.remove(validationConfig.inputErrorClass);
+    // inputError.classList.remove(validationConfig.errorClass);
+    // inputError.textContent = ``;
   });
 }
 
