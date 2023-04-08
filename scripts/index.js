@@ -36,6 +36,8 @@ const openPopup = function (namePopup) {
 const closePopupSubmit = function (popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', closeESC);
+
+  resetErorr(popup);
 };
 
 //закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
@@ -97,6 +99,8 @@ buttonAddCard.addEventListener("click", () => {
 
   const inputList = Array.from(popupCard.querySelectorAll(validationConfig.inputSelector));
   toggleButton(inputList, submitCard, validationConfig);
+  cardTitle.value = '';
+  cardlinkImage.value = '';
 });
 
 // функция добавления карточки в разметку

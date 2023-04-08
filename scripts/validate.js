@@ -45,6 +45,16 @@ const checkInputValid = (input, object) => {
   }
 };
 
+const resetErorr = (popup) => {
+  const inputList = Array.from(popup.querySelectorAll(validationConfig.inputSelector));
+  inputList.forEach((input) => {
+    const inputError = document.querySelector(`.${input.id}-error`);
+    input.classList.remove(validationConfig.inputErrorClass);
+    inputError.classList.remove(validationConfig.errorClass);
+    inputError.textContent = ``;
+  });
+}
+
 //* проверка всех инпутов на валидность
 const checkInputsInvalid = (inputs) => {
   return inputs.some((input) => !input.validity.valid);
