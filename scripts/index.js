@@ -37,7 +37,7 @@ const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', closeESC);
 
-  resetErorr(popup, validationConfig);
+  // resetErorr(popup, validationConfig);
 };
 
 //закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
@@ -83,6 +83,7 @@ buttonEditPopup.addEventListener("click", () => {
   openPopup(popupProfile);
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDescription.textContent;
+  resetErorr(popup, validationConfig);
 
   const inputList = Array.from(popupProfile.querySelectorAll(validationConfig.inputSelector));
   toggleButton(inputList, submitProfile, validationConfig);
@@ -100,6 +101,7 @@ formProfileEditing.addEventListener("submit", (evt) => {
 // открытие попапа создания карточек
 buttonAddCard.addEventListener("click", () => {
   openPopup(popupCard);
+  resetErorr(popup, validationConfig);
 
   const inputList = Array.from(popupCard.querySelectorAll(validationConfig.inputSelector));
   cardTitle.value = '';
