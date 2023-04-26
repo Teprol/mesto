@@ -60,10 +60,6 @@ const resetErorr = (popup, object) => {
   const inputList = Array.from(popup.querySelectorAll(validationConfig.inputSelector));
   inputList.forEach((input) => {
     hideInputError(input, object);
-    // const inputError = document.querySelector(`.${input.id}-error`);
-    // input.classList.remove(validationConfig.inputErrorClass);
-    // inputError.classList.remove(validationConfig.errorClass);
-    // inputError.textContent = ``;
   });
 }
 
