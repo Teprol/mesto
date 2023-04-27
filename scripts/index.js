@@ -1,4 +1,5 @@
-import Card from './Card.js';
+// import Card from './Card.js';
+import Card from './Сard.js';
 import initialCards from './cards.js';
 import FormValidator from './FormValidator.js';
 
@@ -11,7 +12,6 @@ const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 };
-
 // переменые
 //* попап профиля
 const popupProfile = document.querySelector(".popup_profile");
