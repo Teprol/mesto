@@ -2,87 +2,80 @@ class FormValidator {
   constructor(formValid, object) {
     this._object = object;
     this._formValid = formValid;
+
+    this._inputList = Array.from(this._formValid.querySelectorAll(this._object.inputSelector));
+    this._button = this._formValid.querySelector(`${this._object.submitButtonSelector}`);
   }
 
-  //* отключение кнопки отправки форму
-  _disabledSubmitButton = (button, object) => {
-    button.classList.add(`${object.inactiveButtonClass}`);
-    button.disabled = true;
+  // отключение кнопки отправки форму
+  _disabledSubmitButton = () => {
+    this._button.classList.add(`${this._object.inactiveButtonClass}`);
+    this._button.disabled = true;
   };
 
-  //* включение кнопки отправить форму
-  _activeSubmitButton = (button, object) => {
-    button.classList.remove(`${object.inactiveButtonClass}`);
-    button.disabled = false;
+  // включение кнопки отправить форму
+  _activeSubmitButton = () => {
+    this._button.classList.remove(`${this._object.inactiveButtonClass}`);
+    this._button.disabled = false;
   };
 
-  //* проверка всех инпутов на валидность
-  _checkInputsInvalid = (inputs) => {
-    return inputs.some((input) => !input.validity.valid);
+  // проверка всех инпутов на валидность
+  _checkInputsInvalid = () => {
+    return this._inputList.some((input) => !input.validity.valid);
   }
 
-  //* включение выключение кнопок в зависимости от валидности всех
-  _toggleButton = (inputList, button, object) => {
-    if (this._checkInputsInvalid(inputList)) {
-      //!выключаем кнопку
-      this._disabledSubmitButton(button, object);
+  // включение выключение кнопок в зависимости от валидности всех
+  _toggleButton = () => {
+    if (this._checkInputsInvalid()) {
+      this._disabledSubmitButton(); //выключаем кнопку
     } else {
-      //! включаем кнопку
-      this._activeSubmitButton(button, object);
+      this._activeSubmitButton();  //включаем кнопку
     }
   }
 
-  //* показать ошибку
-  _showInputError = (input, object) => {
+  // показать ошибку
+  _showInputError = (input) => {
     const inputError = document.querySelector(`.${input.id}-error`);
-    input.classList.add(`${object.inputErrorClass}`)
-    inputError.classList.add(`${object.errorClass}`);
+    input.classList.add(`${this._object.inputErrorClass}`)
+    inputError.classList.add(`${this._object.errorClass}`);
     inputError.textContent = input.validationMessage;
   }
 
-  //* скрыть ошибку
-  _hideInputError = (input, object) => {
+  // скрыть ошибку
+  _hideInputError = (input) => {
     const inputError = document.querySelector(`.${input.id}-error`);
-    input.classList.remove(`${object.inputErrorClass}`)
-    inputError.classList.remove(`${object.errorClass}`);
+    input.classList.remove(`${this._object.inputErrorClass}`)
+    inputError.classList.remove(`${this._object.errorClass}`);
     inputError.textContent = ``;
   }
 
-  //* функция проверки инпута на валидность
-  _checkInputValid = (input, object) => {
-    //! дальше делаем проверку поля если оно валидно, то показываем ошибку и присваеваем текст ошибки спану
+  // функция проверки инпута на валидность
+  _checkInputValid = (input) => {
+    // дальше делаем проверку поля если оно валидно, то показываем ошибку и присваеваем текст ошибки спану
     if (input.validity.valid) {
-      this._hideInputError(input, object);
+      this._hideInputError(input);
     } else {
-      this._showInputError(input, object);
+      this._showInputError(input);
     }
   };
 
-  //* очистка ошибок форм
+  // очистка ошибок форм
   resetErorr = () => {
-    const inputList = Array.from(this._formValid.querySelectorAll(this._object.inputSelector));
-    const button = this._formValid.querySelector(`${this._object.submitButtonSelector}`);
-    this._toggleButton(inputList, button, this._object);
-    inputList.forEach((input) => {
-      this._hideInputError(input, this._object);
+    this._toggleButton();
+    this._inputList.forEach((input) => {
+      this._hideInputError(input);
     });
   }
 
-  //* делает валидность
+  // делает валидность публичный метод который включает валидацию
   enableValidation = () => {
-    //!публичный метод который включает валидацию
-    const inputList = Array.from(this._formValid.querySelectorAll(`${this._object.inputSelector}`));
-    const button = this._formValid.querySelector(`${this._object.submitButtonSelector}`);
-    //*переключатель кнопки
-    this._toggleButton(inputList, button, this._object);
-
-    //*перебор всех инпутов формы
-    inputList.forEach((input) => {
+    //переключатель кнопки
+    this._toggleButton();
+    //перебор всех инпутов формы
+    this._inputList.forEach((input) => {
       input.addEventListener('input', () => {
-        //* проверка инпута на валидность
-        this._checkInputValid(input, this._object);
-        //*переключатель кнопки
-        this._toggleButton(inputList, button, this._object);
+        this._checkInputValid(input); // проверка инпута на валидность
+        this._toggleButton();         //переключатель кнопки
       });
     });
   };

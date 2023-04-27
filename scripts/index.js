@@ -1,4 +1,4 @@
-import Card from './card.js';
+import Card from './Card.js';
 import initialCards from './cards.js';
 import FormValidator from './FormValidator.js';
 
@@ -41,6 +41,11 @@ const listCards = document.querySelector(".elements__list");
 // шаблон карточки
 // const cardTemplate = document.querySelector("#cards").content;
 
+//? файл Card.js  я сделал с большой буквы, надеюсь не прийдется с git возится, если ошибка будет надо бы найти статью как исправить
+//? надеюсь я правильно понял, что от меня хотят
+const formValidPopupProfile = new FormValidator(popupProfile, validationConfig);
+const formValidpopupCard = new FormValidator(popupCard, validationConfig);
+
 // функция открытия попапа
 const openPopup = function (namePopup) {
   namePopup.classList.add("popup_opened");
@@ -50,15 +55,12 @@ const openPopup = function (namePopup) {
 const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', closeESC);
-
-  // resetErorr(popup, validationConfig);
 };
 
 //закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
 const closeESC = (evt) => {
   if (evt.key === 'Escape') {
     const openPopup = document.querySelector('.popup_opened');
-    // openPopup.classList.remove('popup_opened');
     closePopup(openPopup);
   }
 };
@@ -68,7 +70,6 @@ const clickNoEverley = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popup) => {
     popup.addEventListener('mousedown', (e) => {
-      // e.target === popup ? closePopup(popup) : null;
       if (e.target === popup) {
         closePopup(popup)
       };
@@ -97,12 +98,9 @@ buttonEditPopup.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDescription.textContent;
 
-  //* сброс ошибок
-  const formValid = new FormValidator(popupProfile, validationConfig);
-  formValid.resetErorr();
-  // resetErorr(popupProfile, validationConfig);
-  // const inputList = Array.from(popupProfile.querySelectorAll(validationConfig.inputSelector));
-  // toggleButton(inputList, submitProfile, validationConfig);
+  //! сброс ошибок
+  // const formValid = new FormValidator(popupProfile, validationConfig);
+  formValidPopupProfile.resetErorr();
 });
 
 // отправка формы редактирования профиля и сохранение текста в input
@@ -117,15 +115,11 @@ formProfileEditing.addEventListener("submit", (evt) => {
 buttonAddCard.addEventListener("click", () => {
   openPopup(popupCard);
 
-  //* сброс ошибок
-  const formValid = new FormValidator(popupCard, validationConfig);
-  formValid.resetErorr();
-  // resetErorr(popupCard, validationConfig);
-
-  // const inputList = Array.from(popupCard.querySelectorAll(validationConfig.inputSelector));
+  //! сброс ошибок
+  // const formValid = new FormValidator(popupCard, validationConfig);
+  formValidpopupCard.resetErorr();
   cardTitle.value = '';
   cardlinkImage.value = '';
-  // toggleButton(inputList, submitCard, validationConfig);
 });
 
 // функция добавления карточки в разметку
@@ -133,48 +127,19 @@ const addCardHtml = function (el) {
   listCards.prepend(el);
 };
 
-// функция рендера карточки
-// const renderCard = function (element) {
-//   // карточки
-//   const card = cardTemplate.querySelector(".elements__item").cloneNode(true);
-//   const image = card.querySelector(".element__image");
-//   const title = card.querySelector(".element__title");
-//   const like = card.querySelector(".element__like");
-//   const trash = card.querySelector(".element__button-close");
+//
+const createCard = (item) => {
+  const card = new Card(item, `#cards`);
+  return card.getCard();
+};
 
-//   // событие лайка
-//   like.addEventListener("click", () => {
-//     like.classList.toggle("element__like_active");
-//   });
-
-//   // событие удаление карточки
-//   trash.addEventListener("click", () => {
-//     card.remove();
-//   });
-
-//   // откытие картинки
-//   image.addEventListener("click", () => {
-//     openPopup(popupOpenImage);
-//     popupImageLink.src = element.link;
-//     popupImageLink.alt = element.name;
-//     popupImageTitle.textContent = element.name;
-//   });
-
-//   image.src = element.link;
-//   image.alt = element.name;
-//   title.textContent = element.name;
-
-//   return card;
-//   // listCards.prepend(card);
-// };
-
-//? сохранение карточки
+// сохранение карточки
 formCardSave.addEventListener("submit", (evt) => {
   evt.preventDefault();
   const userCards = { name: cardTitle.value, link: cardlinkImage.value };
-  const card = new Card(userCards, `#cards`);
-  addCardHtml(card.getCard());
-  // addCardHtml(renderCard(userCards));
+  // const card = new Card(userCards, `#cards`);
+  // addCardHtml(card.getCard());
+  addCardHtml(createCard(userCards));
   closePopup(popupCard);
   cardTitle.value = "";
   cardlinkImage.value = "";
@@ -182,25 +147,26 @@ formCardSave.addEventListener("submit", (evt) => {
 
 // создадим карточки из массива
 initialCards.forEach((item) => {
-  const card = new Card(item, `#cards`);
-  addCardHtml(card.getCard());
-  // addCardHtml(renderCard(item));
+  // const card = new Card(item, `#cards`);
+  // addCardHtml(card.getCard());
+  addCardHtml(createCard(item));
 });
 
 
-//!все что ниже это новое
-//*обход всего документа и поиск всех элементов форм попапа
-const enableValidation = (object) => {
-  const formList = Array.from(document.querySelectorAll(`${object.formSelector}`));
+//все что ниже это новое
+//обход всего документа и поиск всех элементов форм попапа
+// const enableValidation = (object) => {
+//   const formList = Array.from(document.querySelectorAll(`${object.formSelector}`));
 
-  formList.forEach((form) => {
+//   formList.forEach((form) => {
+//     const validForm = new FormValidator(form, object);
+//     validForm.enableValidation();
+//   });
+// };
+// enableValidation(validationConfig);
 
-    const validForm = new FormValidator(form, object);
-    validForm.enableValidation();
-    // setEventListenerInput(form, object);
-  });
-};
-enableValidation(validationConfig);
-
+//? не понял почему не проще найти и пройтись по всем формам :(
+formValidPopupProfile.enableValidation();
+formValidpopupCard.enableValidation();
 
 export { popupOpenImage, popupImageLink, popupImageTitle, openPopup };

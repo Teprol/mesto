@@ -1,4 +1,4 @@
-import {popupOpenImage, popupImageLink, popupImageTitle, openPopup} from './index.js';
+import { popupOpenImage, popupImageLink, popupImageTitle, openPopup } from './index.js';
 
 class Card {
   constructor(element, template) {
@@ -19,25 +19,32 @@ class Card {
     this._title.textContent = this._element.name;
   }
 
+  // вешает на лайк класс активности
+  _handleLikeClick = () => {
+    this._like.classList.toggle("element__like_active");
+  }
+
+  // удаляет карточку
+  _handleTrashClick = () => {
+    this._card.remove();
+  }
+
+  _handleOpenImageClick = () => {
+    openPopup(popupOpenImage);
+    popupImageLink.src = this._element.link;
+    popupImageLink.alt = this._element.name;
+    popupImageTitle.textContent = this._element.name;
+  }
+
+
   // вешает все слушатели
   _addListeners() {
     // событие лайка
-    this._like.addEventListener("click", () => {
-      this._like.classList.toggle("element__like_active");
-    });
-
+    this._like.addEventListener("click", this._handleLikeClick);
     // событие удаление карточки
-    this._trash.addEventListener("click", () => {
-      this._card.remove();
-    });
-
+    this._trash.addEventListener("click", this._handleTrashClick);
     // откытие картинки
-    this._image.addEventListener("click", () => {
-      openPopup(popupOpenImage);
-      popupImageLink.src = this._element.link;
-      popupImageLink.alt = this._element.name;
-      popupImageTitle.textContent = this._element.name;
-    });
+    this._image.addEventListener("click", this._handleOpenImageClick);
   }
 
   //ввозращает карточку заполненую с навешенными слушателями
