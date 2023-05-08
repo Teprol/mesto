@@ -2,6 +2,7 @@
 import Card from './Сard.js';
 import initialCards from './cards.js';
 import FormValidator from './FormValidator.js';
+import Section from './components/Section.js';
 
 //? настройки для валидации
 const validationConfig = {
@@ -41,8 +42,7 @@ const listCards = document.querySelector(".elements__list");
 // шаблон карточки
 // const cardTemplate = document.querySelector("#cards").content;
 
-//? файл Card.js  я сделал с большой буквы, надеюсь не прийдется с git возится, если ошибка будет надо бы найти статью как исправить
-//? надеюсь я правильно понял, что от меня хотят
+
 const formValidPopupProfile = new FormValidator(popupProfile, validationConfig);
 const formValidpopupCard = new FormValidator(popupCard, validationConfig);
 
@@ -98,7 +98,7 @@ buttonEditPopup.addEventListener("click", () => {
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDescription.textContent;
 
-  //! сброс ошибок
+  // сброс ошибок
   // const formValid = new FormValidator(popupProfile, validationConfig);
   formValidPopupProfile.resetErorr();
 });
@@ -115,19 +115,31 @@ formProfileEditing.addEventListener("submit", (evt) => {
 buttonAddCard.addEventListener("click", () => {
   openPopup(popupCard);
 
-  //! сброс ошибок
+  // сброс ошибок
   // const formValid = new FormValidator(popupCard, validationConfig);
   formValidpopupCard.resetErorr();
   cardTitle.value = '';
   cardlinkImage.value = '';
 });
 
+//!создание экземпляра класса с карточками
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, `#cards`);
+    return card.getCard();
+  }
+}, ".elements__list");
+
+//! создание карточек из массива
+cardList.renderElements();
+
 // функция добавления карточки в разметку
 const addCardHtml = function (el) {
   listCards.prepend(el);
 };
 
-//
+//создание нового экземпляра класса карточки
 const createCard = (item) => {
   const card = new Card(item, `#cards`);
   return card.getCard();
@@ -147,25 +159,9 @@ formCardSave.addEventListener("submit", (evt) => {
 
 // создадим карточки из массива
 initialCards.forEach((item) => {
-  // const card = new Card(item, `#cards`);
-  // addCardHtml(card.getCard());
   addCardHtml(createCard(item));
 });
 
-
-//все что ниже это новое
-//обход всего документа и поиск всех элементов форм попапа
-// const enableValidation = (object) => {
-//   const formList = Array.from(document.querySelectorAll(`${object.formSelector}`));
-
-//   formList.forEach((form) => {
-//     const validForm = new FormValidator(form, object);
-//     validForm.enableValidation();
-//   });
-// };
-// enableValidation(validationConfig);
-
-//? не понял почему не проще найти и пройтись по всем формам :(
 formValidPopupProfile.enableValidation();
 formValidpopupCard.enableValidation();
 
