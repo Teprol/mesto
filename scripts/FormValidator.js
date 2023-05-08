@@ -35,7 +35,7 @@ class FormValidator {
 
   // показать ошибку
   _showInputError = (input) => {
-    const inputError = document.querySelector(`.${input.id}-error`);
+    const inputError = this._formValid.querySelector(`.${input.id}-error`);
     input.classList.add(`${this._object.inputErrorClass}`)
     inputError.classList.add(`${this._object.errorClass}`);
     inputError.textContent = input.validationMessage;
@@ -43,7 +43,7 @@ class FormValidator {
 
   // скрыть ошибку
   _hideInputError = (input) => {
-    const inputError = document.querySelector(`.${input.id}-error`);
+    const inputError = this._formValid.querySelector(`.${input.id}-error`);
     input.classList.remove(`${this._object.inputErrorClass}`)
     inputError.classList.remove(`${this._object.errorClass}`);
     inputError.textContent = ``;
