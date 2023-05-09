@@ -3,6 +3,7 @@ import Card from './Сard.js';
 import initialCards from './cards.js';
 import FormValidator from './FormValidator.js';
 import Section from './components/Section.js';
+import Popup from './components/Popup.js';
 
 //? настройки для валидации
 const validationConfig = {
@@ -21,7 +22,7 @@ const buttonEditPopup = document.querySelector(".edit-button");
 const formProfileEditing = popupProfile.querySelector(".popup__form");
 const popupInputName = popupProfile.querySelector(".popup__input_name");
 const popupInputDescription = popupProfile.querySelector(".popup__input_description");
-// const submitProfile = popupProfile.querySelector('.popup__save'); //!кнопка сохранения профиля
+// const submitProfile = popupProfile.querySelector('.popup__save'); // кнопка сохранения профиля
 // профиль
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile-info__name");
@@ -32,13 +33,13 @@ const buttonAddCard = document.querySelector(".profile__add-button");
 const formCardSave = popupCard.querySelector(".popup__form");
 const cardTitle = popupCard.querySelector(".popup__input_name");
 const cardlinkImage = popupCard.querySelector(".popup__input_description");
-// const submitCard = popupCard.querySelector('.popup__save'); //!кнопка сохранения Карточки
+// const submitCard = popupCard.querySelector('.popup__save'); //кнопка сохранения Карточки
 //* попап полной картинки
 const popupOpenImage = document.querySelector(".popup_image-open")
 const popupImageLink = popupOpenImage.querySelector(".popup__image");
 const popupImageTitle = popupOpenImage.querySelector(".popup__image-title");
 // список карточек
-const listCards = document.querySelector(".elements__list");
+const listCards = document.querySelector(".elements__list"); // можно будет удалить
 // шаблон карточки
 // const cardTemplate = document.querySelector("#cards").content;
 
@@ -46,18 +47,19 @@ const listCards = document.querySelector(".elements__list");
 const formValidPopupProfile = new FormValidator(popupProfile, validationConfig);
 const formValidpopupCard = new FormValidator(popupCard, validationConfig);
 
-// функция открытия попапа
+//* функция открытия попапа
 const openPopup = function (namePopup) {
   namePopup.classList.add("popup_opened");
   document.addEventListener('keydown', closeESC);
 };
 
+//* функция закрытия попапа
 const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keydown', closeESC);
 };
 
-//закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
+//* закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
 const closeESC = (evt) => {
   if (evt.key === 'Escape') {
     const openPopup = document.querySelector('.popup_opened');
@@ -65,7 +67,7 @@ const closeESC = (evt) => {
   }
 };
 
-//закрытие при клике мимо попапа
+//* закрытие при клике мимо попапа
 const clickNoEverley = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popup) => {
@@ -78,7 +80,7 @@ const clickNoEverley = () => {
 };
 clickNoEverley();
 
-// функция закрытия попапов
+//* функция закрытия попапов
 const addListenerButtonClose = function () {
   // получим псевдомассив всех кнопок закрытия попапов
   const listCloseButtons = Array.from(document.querySelectorAll(".popup .popup__close"));
@@ -134,12 +136,12 @@ const cardList = new Section({
 //! создание карточек из массива
 cardList.renderElements();
 
-// функция добавления карточки в разметку
+//* функция добавления карточки в разметку
 const addCardHtml = function (el) {
   listCards.prepend(el);
 };
 
-//создание нового экземпляра класса карточки
+//* создание нового экземпляра класса карточки
 const createCard = (item) => {
   const card = new Card(item, `#cards`);
   return card.getCard();
@@ -157,7 +159,7 @@ formCardSave.addEventListener("submit", (evt) => {
   cardlinkImage.value = "";
 });
 
-// создадим карточки из массива
+//* создадим карточки из массива
 initialCards.forEach((item) => {
   addCardHtml(createCard(item));
 });
