@@ -5,7 +5,7 @@ class Popup {
     this._selectorPopup = document.querySelector(selector);
   }
 
-  open = () => {
+  open() {
     //? открытие попапа
 
     this._selectorPopup.classList.add("popup_opened");
@@ -23,8 +23,7 @@ class Popup {
     //? содержит логику закрытия попапа клавишей Esc.
 
     if (evt.key === 'Escape') {
-      // const openPopup = document.querySelector('.popup_opened');
-      this.close(this._selectorPopup);
+      this.close();
     }
   }
 
@@ -33,13 +32,16 @@ class Popup {
     //? Модальное окно также закрывается при клике на затемнённую область вокруг формы.
     const closeButton = this._selectorPopup.querySelector(".popup__close");
 
+    //?вроде нужно раскидать по отдельным приватным методам для колбэка
+    //?но не нашел такое требование
+
     closeButton.addEventListener('click', () => {
-      this.close(this._selectorPopup);
+      this.close();
     });
 
     this._selectorPopup.addEventListener('mousedown', (e) => {
       if (e.target === this._selectorPopup) {
-        this.close(this._selectorPopup);
+        this.close();
       };
     });
 

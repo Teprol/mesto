@@ -4,6 +4,7 @@ import initialCards from './cards.js';
 import FormValidator from './FormValidator.js';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
+import PopupWithImage from './components/PopupWithImage.js';
 
 //? настройки для валидации
 const validationConfig = {
@@ -23,7 +24,7 @@ const formProfileEditing = popupProfile.querySelector(".popup__form");
 const popupInputName = popupProfile.querySelector(".popup__input_name");
 const popupInputDescription = popupProfile.querySelector(".popup__input_description");
 // const submitProfile = popupProfile.querySelector('.popup__save'); // кнопка сохранения профиля
-// профиль
+//* профиль
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile-info__name");
 const profileDescription = profile.querySelector(".profile-info__description");
@@ -35,11 +36,11 @@ const cardTitle = popupCard.querySelector(".popup__input_name");
 const cardlinkImage = popupCard.querySelector(".popup__input_description");
 // const submitCard = popupCard.querySelector('.popup__save'); //кнопка сохранения Карточки
 //* попап полной картинки
-const popupOpenImage = document.querySelector(".popup_image-open")
-const popupImageLink = popupOpenImage.querySelector(".popup__image");
-const popupImageTitle = popupOpenImage.querySelector(".popup__image-title");
+const popupOpenImage = document.querySelector(".popup_image-open");//! можно будет удалить
+const popupImageLink = popupOpenImage.querySelector(".popup__image");//! можно будет удалить
+const popupImageTitle = popupOpenImage.querySelector(".popup__image-title");//! можно будет удалить
 // список карточек
-const listCards = document.querySelector(".elements__list"); // можно будет удалить
+const listCards = document.querySelector(".elements__list"); //! можно будет удалить
 // шаблон карточки
 // const cardTemplate = document.querySelector("#cards").content;
 
@@ -124,17 +125,24 @@ buttonAddCard.addEventListener("click", () => {
   cardlinkImage.value = '';
 });
 
-//!создание экземпляра класса с карточками
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, `#cards`);
-    return card.getCard();
-  }
-}, ".elements__list");
+//!функция для связи Card c попапом
+const handleCardClick = (objectData) => {
+  const image = new PopupWithImage('.popup_image-open');
+  image.open(objectData);
+  image.setEventListeners();
+};
 
-//! создание карточек из массива
-cardList.renderElements();
+// //!создание экземпляра класса с карточками
+// const cardList = new Section({
+//   items: initialCards,
+//   renderer: (item) => {
+//     const card = new Card(item, `#cards`, handleCardClick);
+//     return card.getCard();
+//   }
+// }, ".elements__list");
+
+// //! создание карточек из массива
+// cardList.renderElements();
 
 //* функция добавления карточки в разметку
 const addCardHtml = function (el) {
@@ -143,7 +151,7 @@ const addCardHtml = function (el) {
 
 //* создание нового экземпляра класса карточки
 const createCard = (item) => {
-  const card = new Card(item, `#cards`);
+  const card = new Card(item, `#cards`, handleCardClick);
   return card.getCard();
 };
 

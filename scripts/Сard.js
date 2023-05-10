@@ -1,7 +1,7 @@
 import { popupOpenImage, popupImageLink, popupImageTitle, openPopup } from './index.js';
 
 class Card {
-  constructor(element, template) {
+  constructor(element, template, handleCardClick) {
     this._element = element;
     this._template = document.querySelector(template).content;
     this._card = this._template.querySelector(".elements__item").cloneNode(true);
@@ -10,6 +10,8 @@ class Card {
     this._title = this._card.querySelector(".element__title");
     this._like = this._card.querySelector(".element__like");
     this._trash = this._card.querySelector(".element__button-close");
+
+    this._handleCardClick = handleCardClick;
   }
 
   //заполняет карточку данными из объекта из параметра
@@ -30,10 +32,11 @@ class Card {
   }
 
   _handleOpenImageClick = () => {
-    openPopup(popupOpenImage);
-    popupImageLink.src = this._element.link;
-    popupImageLink.alt = this._element.name;
-    popupImageTitle.textContent = this._element.name;
+    // openPopup(popupOpenImage);
+    // popupImageLink.src = this._element.link;
+    // popupImageLink.alt = this._element.name;
+    // popupImageTitle.textContent = this._element.name;
+    this._handleCardClick(this._element);
   }
 
 
