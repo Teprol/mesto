@@ -1,19 +1,41 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor(selector, sabmitFormColback) {
+  constructor(selector) {
     //? Кроме селектора попапа принимает в конструктор колбэк сабмита формы.
 
     super(selector);
+    // sabmitFormColback
+    // this._sabmitFormColback = sabmitFormColback;
 
-    this._sabmitFormColback = sabmitFormColback;
-
-    this._popupForm = document.querySelector(selector);
-    this.inputList = this._popupForm
+    this._form = this._selectorPopup.querySelector('.popup__form');
+    this._inputList = Array.from(this._selectorPopup.querySelectorAll(".popup__input"));
   };
 
-  _getInputValues = () => {
+  //? в пачке сказали что в брифе опечатка и делать метод публичным
+  getInputValues = () => {
     //? собирает данные всех полей формы.
+    this._userInputs = {};
 
+    this._inputList.forEach((input) => {
+      this._userInputs[input.name] = input.value;
+    })
+    console.log(this._userInputs);
+    return this._userInputs;
+  };
+
+  setEventListeners = () => {
+
+    super.setEventListeners();
+    this._form.addEventListener('submit', this._sabmitFormColback)
+
+    console.log(`HELLO`)
+  };
+
+  colse = () => {
+    super.close();
+    this._form.reset();
   };
 };
+
+export default PopupWithForm;

@@ -5,6 +5,7 @@ import FormValidator from './FormValidator.js';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
 
 //? настройки для валидации
 const validationConfig = {
@@ -51,58 +52,64 @@ const formValidpopupCard = new FormValidator(popupCard, validationConfig);
 //* функция открытия попапа
 const openPopup = function (namePopup) {
   namePopup.classList.add("popup_opened");
-  document.addEventListener('keydown', closeESC);
+  // document.addEventListener('keydown', closeESC);
 };
 
 //* функция закрытия попапа
 const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', closeESC);
+  // document.removeEventListener('keydown', closeESC);
 };
 
 //* закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
-const closeESC = (evt) => {
-  if (evt.key === 'Escape') {
-    const openPopup = document.querySelector('.popup_opened');
-    closePopup(openPopup);
-  }
-};
+// const closeESC = (evt) => {
+//   if (evt.key === 'Escape') {
+//     const openPopup = document.querySelector('.popup_opened');
+//     closePopup(openPopup);
+//   }
+// };
 
 //* закрытие при клике мимо попапа
-const clickNoEverley = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
-  popupList.forEach((popup) => {
-    popup.addEventListener('mousedown', (e) => {
-      if (e.target === popup) {
-        closePopup(popup)
-      };
-    });
-  });
-};
-clickNoEverley();
+// const clickNoEverley = () => {
+//   const popupList = Array.from(document.querySelectorAll('.popup'));
+//   popupList.forEach((popup) => {
+//     popup.addEventListener('mousedown', (e) => {
+//       if (e.target === popup) {
+//         closePopup(popup)
+//       };
+//     });
+//   });
+// };
+// clickNoEverley();
 
 //* функция закрытия попапов
-const addListenerButtonClose = function () {
-  // получим псевдомассив всех кнопок закрытия попапов
-  const listCloseButtons = Array.from(document.querySelectorAll(".popup .popup__close"));
-  // переберем его присваивая каждой кнопке функционал
-  listCloseButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const perentPopup = button.closest(".popup");
-      closePopup(perentPopup);
-    });
-  });
-};
-addListenerButtonClose();
+// const addListenerButtonClose = function () {
+//   // получим псевдомассив всех кнопок закрытия попапов
+//   const listCloseButtons = Array.from(document.querySelectorAll(".popup .popup__close"));
+//   // переберем его присваивая каждой кнопке функционал
+//   listCloseButtons.forEach((button) => {
+//     button.addEventListener("click", () => {
+//       const perentPopup = button.closest(".popup");
+//       closePopup(perentPopup);
+//     });
+//   });
+// };
+// addListenerButtonClose();
+
+const test = new PopupWithForm('.popup_profile');
+const test2 = new PopupWithForm('.popup_card');
 
 // открытие попапа профиля
 buttonEditPopup.addEventListener("click", () => {
-  openPopup(popupProfile);
+  // openPopup(popupProfile);
+  test.open(); //!
+  test.setEventListeners(); //!
+  test.getInputValues(); //!
+
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDescription.textContent;
 
   // сброс ошибок
-  // const formValid = new FormValidator(popupProfile, validationConfig);
   formValidPopupProfile.resetErorr();
 });
 
@@ -116,10 +123,12 @@ formProfileEditing.addEventListener("submit", (evt) => {
 
 // открытие попапа создания карточек
 buttonAddCard.addEventListener("click", () => {
-  openPopup(popupCard);
+  // openPopup(popupCard);
+  test2.open(); //!
+  test2.setEventListeners(); //!
+  test2.getInputValues(); //!
 
   // сброс ошибок
-  // const formValid = new FormValidator(popupCard, validationConfig);
   formValidpopupCard.resetErorr();
   cardTitle.value = '';
   cardlinkImage.value = '';
