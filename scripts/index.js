@@ -1,196 +1,71 @@
-// import Card from './Card.js';
-import Card from './Сard.js';
-import initialCards from './cards.js';
-import FormValidator from './FormValidator.js';
+import Card from './components/Сard.js';
+import initialCards from './utils/cards.js';
+import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
+import { validationConfig, popupProfile, buttonEditPopup, popupCard, buttonAddCard, objectSelectors } from './utils/constants.js';
 
-//? настройки для валидации
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-// переменые
-//* попап профиля
-const popupProfile = document.querySelector(".popup_profile");
-const buttonEditPopup = document.querySelector(".edit-button");
-// форма
-const formProfileEditing = popupProfile.querySelector(".popup__form");
-const popupInputName = popupProfile.querySelector(".popup__input_name");
-const popupInputDescription = popupProfile.querySelector(".popup__input_description");
-// const submitProfile = popupProfile.querySelector('.popup__save'); // кнопка сохранения профиля
-//* профиль
-const profile = document.querySelector(".profile");
-const profileName = profile.querySelector(".profile-info__name");
-const profileDescription = profile.querySelector(".profile-info__description");
-//* попап добавления карточки
-const popupCard = document.querySelector(".popup_card");
-const buttonAddCard = document.querySelector(".profile__add-button");
-const formCardSave = popupCard.querySelector(".popup__form");
-const cardTitle = popupCard.querySelector(".popup__input_name");
-const cardlinkImage = popupCard.querySelector(".popup__input_description");
-// const submitCard = popupCard.querySelector('.popup__save'); //кнопка сохранения Карточки
-//* попап полной картинки
-const popupOpenImage = document.querySelector(".popup_image-open");//! можно будет удалить
-const popupImageLink = popupOpenImage.querySelector(".popup__image");//! можно будет удалить
-const popupImageTitle = popupOpenImage.querySelector(".popup__image-title");//! можно будет удалить
-// список карточек
-const listCards = document.querySelector(".elements__list"); //! можно будет удалить
-// шаблон карточки
-// const cardTemplate = document.querySelector("#cards").content;
-
-
+//* экземпляры классов форм
 const formValidPopupProfile = new FormValidator(popupProfile, validationConfig);
 const formValidpopupCard = new FormValidator(popupCard, validationConfig);
 
-//* функция открытия попапа
-const openPopup = function (namePopup) {
-  namePopup.classList.add("popup_opened");
-  // document.addEventListener('keydown', closeESC);
-};
+//* экземпляр класса профиля который не форма
+const UserProfile = new UserInfo(objectSelectors);
 
-//* функция закрытия попапа
-const closePopup = function (popup) {
-  popup.classList.remove("popup_opened");
-  // document.removeEventListener('keydown', closeESC);
-};
-
-//* закрытие по клавише которое находит единственный на стр элемент и снимает с него класс опена
-// const closeESC = (evt) => {
-//   if (evt.key === 'Escape') {
-//     const openPopup = document.querySelector('.popup_opened');
-//     closePopup(openPopup);
-//   }
-// };
-
-//* закрытие при клике мимо попапа
-// const clickNoEverley = () => {
-//   const popupList = Array.from(document.querySelectorAll('.popup'));
-//   popupList.forEach((popup) => {
-//     popup.addEventListener('mousedown', (e) => {
-//       if (e.target === popup) {
-//         closePopup(popup)
-//       };
-//     });
-//   });
-// };
-// clickNoEverley();
-
-//* функция закрытия попапов
-// const addListenerButtonClose = function () {
-//   // получим псевдомассив всех кнопок закрытия попапов
-//   const listCloseButtons = Array.from(document.querySelectorAll(".popup .popup__close"));
-//   // переберем его присваивая каждой кнопке функционал
-//   listCloseButtons.forEach((button) => {
-//     button.addEventListener("click", () => {
-//       const perentPopup = button.closest(".popup");
-//       closePopup(perentPopup);
-//     });
-//   });
-// };
-// addListenerButtonClose();
-
-//!объект с селекторами полей профиля
-const objectSelectors = {
-  profileDescription: ".profile-info__description",
-  profileName: ".profile-info__name"
-}
-
-const test = new PopupWithForm('.popup_profile');
-const test2 = new PopupWithForm('.popup_card');
-const test3 = new UserInfo(objectSelectors);
-console.log(test3);
+//! экземпляр класса попап профиля
+const popupProfile1 = new PopupWithForm('.popup_profile', (evt) => {
+  evt.preventDefault();
+  UserProfile.setUserInfo(popupProfile1.getInputValues());
+  popupProfile1.close();
+});
 
 // открытие попапа профиля
 buttonEditPopup.addEventListener("click", () => {
-  // openPopup(popupProfile);
-  test.open(); //!
-  test.setEventListeners(); //!
-  test.getInputValues(); //!
+  popupProfile1.open();
+  popupProfile1.setEventListeners();
 
-  popupInputName.value = profileName.textContent;
-  popupInputDescription.value = profileDescription.textContent;
-
+  popupProfile1.setInputValues(UserProfile.getUserInfo());
   // сброс ошибок
   formValidPopupProfile.resetErorr();
 });
 
-// отправка формы редактирования профиля и сохранение текста в input
-formProfileEditing.addEventListener("submit", (evt) => {
+//! экземпляр класса попап создания карточки
+const popupCard1 = new PopupWithForm('.popup_card', (evt) => {
   evt.preventDefault();
-  profileName.textContent = popupInputName.value;
-  profileDescription.textContent = popupInputDescription.value;
-  closePopup(popupProfile);
+  cardList.addItem(cardList.renderer(popupCard1.getInputValues()));
+  popupCard1.close();
 });
 
 // открытие попапа создания карточек
 buttonAddCard.addEventListener("click", () => {
-  // openPopup(popupCard);
-  test2.open(); //!
-  test2.setEventListeners(); //!
-  test2.getInputValues(); //!
-
+  popupCard1.open();
+  popupCard1.setEventListeners();
   // сброс ошибок
   formValidpopupCard.resetErorr();
-  cardTitle.value = '';
-  cardlinkImage.value = '';
 });
 
-//!функция для связи Card c попапом
+//! функция для связи Card c попапом
 const handleCardClick = (objectData) => {
   const image = new PopupWithImage('.popup_image-open');
   image.open(objectData);
   image.setEventListeners();
 };
 
-// //!создание экземпляра класса с карточками
-// const cardList = new Section({
-//   items: initialCards,
-//   renderer: (item) => {
-//     const card = new Card(item, `#cards`, handleCardClick);
-//     return card.getCard();
-//   }
-// }, ".elements__list");
+//создание экземпляра класса с карточками
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, `#cards`, handleCardClick);
+    return card.getCard();
+  }
+}, ".elements__list");
 
-// //! создание карточек из массива
-// cardList.renderElements();
+// создание карточек из массива
+cardList.renderElements();
 
-//* функция добавления карточки в разметку
-const addCardHtml = function (el) {
-  listCards.prepend(el);
-};
-
-//* создание нового экземпляра класса карточки
-const createCard = (item) => {
-  const card = new Card(item, `#cards`, handleCardClick);
-  return card.getCard();
-};
-
-// сохранение карточки
-formCardSave.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  const userCards = { name: cardTitle.value, link: cardlinkImage.value };
-  // const card = new Card(userCards, `#cards`);
-  // addCardHtml(card.getCard());
-  addCardHtml(createCard(userCards));
-  closePopup(popupCard);
-  cardTitle.value = "";
-  cardlinkImage.value = "";
-});
-
-//* создадим карточки из массива
-initialCards.forEach((item) => {
-  addCardHtml(createCard(item));
-});
-
+//! включение валидаций форм
 formValidPopupProfile.enableValidation();
 formValidpopupCard.enableValidation();
-
-export { popupOpenImage, popupImageLink, popupImageTitle, openPopup };

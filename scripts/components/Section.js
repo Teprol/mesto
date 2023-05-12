@@ -6,7 +6,7 @@ class Section {
   //? selectorContainer  - селектор контейнера, в который нужно добавлять созданные элементы.
   constructor({ items, renderer }, selectorContainer) {
     this._items = items;
-    this._renderer = renderer;
+    this.renderer = renderer;
 
     this._container = document.querySelector(selectorContainer);
   }
@@ -15,7 +15,7 @@ class Section {
     //? отвечает за отрисовку всех элементов.
     //? Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
     this._items.forEach((item) => {
-      this.addItem(this._renderer(item));
+      this.addItem(this.renderer(item));
     });
   };
 

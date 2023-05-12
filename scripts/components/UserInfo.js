@@ -10,7 +10,7 @@ class UserInfo {
 
   setUserInfo = (objectUser) => {
     this._profileName.textContent = objectUser.name;
-    this._profileDescription = objectUser.description;
+    this._profileDescription.textContent = objectUser.description;
   };
 }
 
