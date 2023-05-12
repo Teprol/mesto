@@ -6,6 +6,7 @@ import Section from './components/Section.js';
 import Popup from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
 
 //? настройки для валидации
 const validationConfig = {
@@ -96,8 +97,16 @@ const closePopup = function (popup) {
 // };
 // addListenerButtonClose();
 
+//!объект с селекторами полей профиля
+const objectSelectors = {
+  profileDescription: ".profile-info__description",
+  profileName: ".profile-info__name"
+}
+
 const test = new PopupWithForm('.popup_profile');
 const test2 = new PopupWithForm('.popup_card');
+const test3 = new UserInfo(objectSelectors);
+console.log(test3);
 
 // открытие попапа профиля
 buttonEditPopup.addEventListener("click", () => {

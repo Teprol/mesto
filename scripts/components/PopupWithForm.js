@@ -15,8 +15,8 @@ class PopupWithForm extends Popup {
   //? в пачке сказали что в брифе опечатка и делать метод публичным
   getInputValues = () => {
     //? собирает данные всех полей формы.
-    this._userInputs = {};
 
+    this._userInputs = {};
     this._inputList.forEach((input) => {
       this._userInputs[input.name] = input.value;
     })
@@ -25,11 +25,8 @@ class PopupWithForm extends Popup {
   };
 
   setEventListeners = () => {
-
     super.setEventListeners();
     this._form.addEventListener('submit', this._sabmitFormColback)
-
-    console.log(`HELLO`)
   };
 
   colse = () => {
