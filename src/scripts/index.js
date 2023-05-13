@@ -1,3 +1,4 @@
+import '../pages/index.css'; //подключаем главный файл css
 import Card from './components/Сard.js';
 import initialCards from './utils/cards.js';
 import FormValidator from './components/FormValidator.js';
