@@ -21,3 +21,6 @@ export const objectSelectors = {
   profileDescription: ".profile-info__description",
   profileName: ".profile-info__name"
 }
+
+export const cohort = 'cohort-66';
+export const token = 'aa1ee32f-1c0f-4889-af2b-f7e1de805230';

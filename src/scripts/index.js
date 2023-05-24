@@ -8,6 +8,23 @@ import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
 import { validationConfig, popupProfile, buttonEditPopup, popupCard, buttonAddCard, objectSelectors } from './utils/constants.js';
+import Api, { api } from './components/Api.js';
+
+//рендер карточек через запрос к серверу
+api.getUserInfo()
+  .then((res) => {
+    //создание экземпляра класса с карточками
+    const cardList = new Section({
+      items: res,
+      renderer: (item) => {
+        const card = new Card(item, `#cards`, handleCardClick);
+        return card.getCard();
+      }
+    }, ".elements__list");
+
+    // создание карточек из массива
+    cardList.renderElements();
+  });
 
 //* экземпляры классов форм
 const formValidPopupProfile = new FormValidator(popupProfile, validationConfig);
@@ -47,6 +64,7 @@ buttonAddCard.addEventListener("click", () => {
   formValidpopupCard.resetErorr();
 });
 
+//! экземпляр класса попапа картинки
 const image = new PopupWithImage('.popup_image-open');
 image.setEventListeners();
 
@@ -55,17 +73,17 @@ const handleCardClick = (objectData) => {
   image.open(objectData);
 };
 
-//создание экземпляра класса с карточками
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, `#cards`, handleCardClick);
-    return card.getCard();
-  }
-}, ".elements__list");
+// //создание экземпляра класса с карточками
+// const cardList = new Section({
+//   items: initialCards,
+//   renderer: (item) => {
+//     const card = new Card(item, `#cards`, handleCardClick);
+//     return card.getCard();
+//   }
+// }, ".elements__list");
 
-// создание карточек из массива
-cardList.renderElements();
+// // создание карточек из массива
+// cardList.renderElements();
 
 //! включение валидаций форм
 formValidPopupProfile.enableValidation();
