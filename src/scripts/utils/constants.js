@@ -19,7 +19,8 @@ export const buttonAddCard = document.querySelector(".profile__add-button");
 // объект с селекторами полей профиля
 export const objectSelectors = {
   profileDescription: ".profile-info__description",
-  profileName: ".profile-info__name"
+  profileName: ".profile-info__name",
+  profileAvatar: ".profile__avatar"
 }
 
 export const cohort = 'cohort-66';
