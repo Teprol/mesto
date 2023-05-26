@@ -32,7 +32,7 @@ api.getCardData()
 // //! запрос инфо о пользователе через сервер
 api.getUserInfo()
   .then((userInfo) => {
-    userProfile.getServerUserInfo(userInfo);
+    // userProfile.getServerUserInfo(userInfo);
     userProfile.setUserInfo(userInfo);
   })
   .catch((err) => {
@@ -49,8 +49,17 @@ const userProfile = new UserInfo(objectSelectors);
 //* экземпляр класса попап профиля
 const popupProfile1 = new PopupWithForm('.popup_profile', (evt) => {
   evt.preventDefault();
-  userProfile.setUserInfo(popupProfile1.getInputValues());
-  popupProfile1.close();
+
+  api.setUserInfo(popupProfile1.getInputValues())
+    .then((serverInfoUser) => {
+      userProfile.setUserInfo(serverInfoUser);
+      popupProfile1.close();
+    })
+    .catch((err) => {
+      api.infoError(`Информация профиля не обнавлена`, err);
+    });
+  // userProfile.setUserInfo(popupProfile1.getInputValues());
+  // popupProfile1.close();
 });
 popupProfile1.setEventListeners();
 
