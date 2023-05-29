@@ -62,6 +62,26 @@ class Api {
       }
     });
   };
+
+  setCardUser = ({name, link}) => {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: `${this._token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        link: link
+      })
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      }
+    });
+  };
 }
 
 export const api = new Api(cohort, token);

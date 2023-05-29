@@ -54,6 +54,7 @@ class Card {
   getCard() {
     this._render();
     this._addListeners();
+    console.log(this._element);
 
     return this._card;
   }

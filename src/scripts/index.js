@@ -1,6 +1,6 @@
 import '../pages/index.css'; //подключаем главный файл css
 import Card from './components/Сard.js';
-import initialCards from './utils/cards.js';
+// import initialCards from './utils/cards.js';
 import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
@@ -10,29 +10,49 @@ import UserInfo from './components/UserInfo.js';
 import { validationConfig, popupProfile, buttonEditPopup, popupCard, buttonAddCard, objectSelectors } from './utils/constants.js';
 import Api, { api } from './components/Api.js';
 
-//! рендер карточек через запрос к серверу
+
+// ! рендер карточек через запрос к серверу
 api.getCardData()
   .then((cards) => {
-    //? создание экземпляра класса с карточками
-    const cardList = new Section({
-      items: cards,
-      renderer: (item) => {
-        const card = new Card(item, `#cards`, handleCardClick);
-        return card.getCard();
-      }
-    }, ".elements__list");
-
-    //? создание карточек из массива
+    //! сейвит объект с карточками в созданном классе, далее рендерит его
+    cardList.getCardsServer(cards);
     cardList.renderElements();
   })
   .catch((err) => {
     api.infoError(`Ошибка при загрузке карточек`, err);
   });
 
+//! создание экземпляра класса с карточками, колбэк метод рендера карточек
+const cardList = new Section({
+  renderer: (item) => {
+    const card = new Card(item, `#cards`, handleCardClick);
+    return card.getCard();
+  }
+}, ".elements__list");
+
+// // ! рендер карточек через запрос к серверу
+// api.getCardData()
+//   .then((cards) => {
+//     //? создание экземпляра класса с карточками
+//     const cardList = new Section({
+//       items: cards,
+//       renderer: (item) => {
+//         const card = new Card(item, `#cards`, handleCardClick);
+//         return card.getCard();
+//       }
+//     }, ".elements__list");
+
+//     //? создание карточек из массива
+//     cardList.renderElements();
+//   })
+//   .catch((err) => {
+//     api.infoError(`Ошибка при загрузке карточек`, err);
+//   });
+
 // //! запрос инфо о пользователе через сервер
 api.getUserInfo()
   .then((userInfo) => {
-    // userProfile.getServerUserInfo(userInfo);
+    userProfile.getServerUserInfo(userInfo);
     userProfile.setUserInfo(userInfo);
   })
   .catch((err) => {
@@ -50,6 +70,7 @@ const userProfile = new UserInfo(objectSelectors);
 const popupProfile1 = new PopupWithForm('.popup_profile', (evt) => {
   evt.preventDefault();
 
+  //!изминение инфы пользователя
   api.setUserInfo(popupProfile1.getInputValues())
     .then((serverInfoUser) => {
       userProfile.setUserInfo(serverInfoUser);
@@ -57,9 +78,9 @@ const popupProfile1 = new PopupWithForm('.popup_profile', (evt) => {
     })
     .catch((err) => {
       api.infoError(`Информация профиля не обнавлена`, err);
+      userProfile.setUserInfo(popupProfile1.getInputValues());
+      popupProfile1.close();
     });
-  // userProfile.setUserInfo(popupProfile1.getInputValues());
-  // popupProfile1.close();
 });
 popupProfile1.setEventListeners();
 
@@ -74,7 +95,16 @@ buttonEditPopup.addEventListener("click", () => {
 //* экземпляр класса попап создания карточки
 const popupCard1 = new PopupWithForm('.popup_card', (evt) => {
   evt.preventDefault();
-  cardList.addItem(cardList.renderer(popupCard1.getInputValues()));
+  // cardList.addItem(cardList.renderer(popupCard1.getInputValues()));
+  //! заливаем карточку на сервер
+  api.setCardUser(popupCard1.getInputValues())
+    .then((card) => {
+      cardList.addItem(cardList.renderer(card));
+    })
+    .catch((err) => {
+      api.infoError(`Карточка не отправлена`, err);
+      cardList.addItem(cardList.renderer(popupCard1.getInputValues()));
+    })
   popupCard1.close();
 });
 popupCard1.setEventListeners();
@@ -96,7 +126,7 @@ const handleCardClick = (objectData) => {
 };
 
 // //создание экземпляра класса с карточками
-// const cardList = new Section({
+// const cardLis = new Section({
 //   items: initialCards,
 //   renderer: (item) => {
 //     const card = new Card(item, `#cards`, handleCardClick);
@@ -104,7 +134,7 @@ const handleCardClick = (objectData) => {
 //   }
 // }, ".elements__list");
 
-// // создание карточек из массива
+// создание карточек из массива
 // cardList.renderElements();
 
 //* включение валидаций форм

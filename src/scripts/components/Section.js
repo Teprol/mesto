@@ -4,11 +4,17 @@ class Section {
   //? renderer - функция, которая отвечает за создание и отрисовку данных на странице
 
   //? selectorContainer  - селектор контейнера, в который нужно добавлять созданные элементы.
-  constructor({ items, renderer }, selectorContainer) {
-    this._items = items;
+  // constructor({ items, renderer }, selectorContainer) {
+  constructor({renderer }, selectorContainer) {
+    // this._items = items;
+    this._items;
     this.renderer = renderer;
 
     this._container = document.querySelector(selectorContainer);
+  }
+
+  getCardsServer = (cards) => {
+    this._items = cards;
   }
 
   renderElements = () => {
