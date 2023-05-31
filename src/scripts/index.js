@@ -1,6 +1,6 @@
 import '../pages/index.css'; //подключаем главный файл css
 import Card from './components/Сard.js';
-// import initialCards from './utils/cards.js';
+import initialCards from './utils/cards.js';
 import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
@@ -10,12 +10,12 @@ import UserInfo from './components/UserInfo.js';
 import { validationConfig, popupProfile, buttonEditPopup, popupCard, buttonAddCard, objectSelectors } from './utils/constants.js';
 import Api, { api } from './components/Api.js';
 
-
 // ! рендер карточек через запрос к серверу
 api.getCardData()
   .then((cards) => {
     //! сейвит объект с карточками в созданном классе, далее рендерит его
-    cardList.getCardsServer(cards);
+    console.log(cards);
+    cardList.getCardsServer(cards.reverse());
     cardList.renderElements();
   })
   .catch((err) => {
@@ -95,7 +95,7 @@ buttonEditPopup.addEventListener("click", () => {
 //* экземпляр класса попап создания карточки
 const popupCard1 = new PopupWithForm('.popup_card', (evt) => {
   evt.preventDefault();
-  // cardList.addItem(cardList.renderer(popupCard1.getInputValues()));
+
   //! заливаем карточку на сервер
   api.setCardUser(popupCard1.getInputValues())
     .then((card) => {
@@ -126,7 +126,7 @@ const handleCardClick = (objectData) => {
 };
 
 // //создание экземпляра класса с карточками
-// const cardLis = new Section({
+// const cardList = new Section({
 //   items: initialCards,
 //   renderer: (item) => {
 //     const card = new Card(item, `#cards`, handleCardClick);
@@ -134,8 +134,8 @@ const handleCardClick = (objectData) => {
 //   }
 // }, ".elements__list");
 
-// создание карточек из массива
-// cardList.renderElements();
+// // создание карточек из массива
+// cardList.renderElements(initialCards);
 
 //* включение валидаций форм
 formValidPopupProfile.enableValidation();

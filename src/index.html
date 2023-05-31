@@ -47,8 +47,8 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <div class="popup__input-container">
           <div>
-            <input class="popup__input popup__input_name input" type="text" placeholder="Введите ваше имя"
-              name="name" id="input-profile-name" required minlength="2" maxlength="40" />
+            <input class="popup__input popup__input_name input" type="text" placeholder="Введите ваше имя" name="name"
+              id="input-profile-name" required minlength="2" maxlength="40" />
             <!-- !СПАН -->
             <span class="popup__error input-profile-name-error"></span>
           </div>
@@ -59,7 +59,7 @@
             <span class="popup__error input-profile-description-error"></span>
           </div>
         </div>
-        <input class="popup__save" type="submit" value="Сохранить"/>
+        <input class="popup__save" type="submit" value="Сохранить" />
       </form>
     </div>
   </section>
@@ -81,7 +81,7 @@
             <span class="popup__error input-link-error"></span>
           </div>
         </div>
-        <input class="popup__save" type="submit" value="Создать"/>
+        <input class="popup__save" type="submit" value="Создать" />
       </form>
     </div>
   </section>
@@ -101,7 +101,10 @@
         <button class="element__button-close button hover" type="button"></button>
         <div class="element__content-container">
           <h2 class="element__title">#</h2>
-          <button class="element__like button" type="button"></button>
+          <div class="element__container-like">
+            <button class="element__like button" type="button"></button>
+            <p class="element__like-count"></p>
+          </div>
         </div>
       </article>
     </li>

@@ -9,6 +9,7 @@ class Card {
     this._image = this._card.querySelector(".element__image");
     this._title = this._card.querySelector(".element__title");
     this._like = this._card.querySelector(".element__like");
+    this._likeCounter = this._card.querySelector(".element__like-count");
     this._trash = this._card.querySelector(".element__button-close");
 
     this._handleCardClick = handleCardClick;
@@ -19,6 +20,7 @@ class Card {
     this._image.src = this._element.link;
     this._image.alt = this._element.name;
     this._title.textContent = this._element.name;
+    this._likeCounter.textContent = this._element.likes.length;
   }
 
   // вешает на лайк класс активности
@@ -54,7 +56,6 @@ class Card {
   getCard() {
     this._render();
     this._addListeners();
-    console.log(this._element);
 
     return this._card;
   }

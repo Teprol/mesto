@@ -5,7 +5,7 @@ class Section {
 
   //? selectorContainer  - селектор контейнера, в который нужно добавлять созданные элементы.
   // constructor({ items, renderer }, selectorContainer) {
-  constructor({renderer }, selectorContainer) {
+  constructor({ renderer }, selectorContainer) {
     // this._items = items;
     this._items;
     this.renderer = renderer;
