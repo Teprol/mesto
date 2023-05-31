@@ -1,62 +1,62 @@
 import '../pages/index.css'; //подключаем главный файл css
 import Card from './components/Сard.js';
-import initialCards from './utils/cards.js';
 import FormValidator from './components/FormValidator.js';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
+import PopupWithSubmit from './components/PopupWithSubmit.js'
 import UserInfo from './components/UserInfo.js';
 import { validationConfig, popupProfile, buttonEditPopup, popupCard, buttonAddCard, objectSelectors } from './utils/constants.js';
 import Api, { api } from './components/Api.js';
 
-// ! рендер карточек через запрос к серверу
-api.getCardData()
-  .then((cards) => {
-    //! сейвит объект с карточками в созданном классе, далее рендерит его
+Promise.all([api.getCardData(), api.getUserInfo()])
+  .then(([cards, userInfo]) => {
+    userProfile.getServerUserInfo(userInfo);
+    userProfile.setUserInfo(userInfo);
     cardList.getCardsServer(cards.reverse());
     cardList.renderElements();
   })
   .catch((err) => {
-    api.infoError(`Ошибка при загрузке карточек`, err);
+    api.infoError(`Ошибка при загрузке данных с сервера`, err);
   });
 
 //! создание экземпляра класса с карточками, колбэк метод рендера карточек
 const cardList = new Section({
   renderer: (item) => {
-    const card = new Card(item, `#cards`, handleCardClick);
+    const card = new Card(item, `#cards`, userProfile.userId, handleCardClick, handleCardDelite);
     return card.getCard();
   }
 }, ".elements__list");
 
-// // ! рендер карточек через запрос к серверу
-// api.getCardData()
-//   .then((cards) => {
-//     //? создание экземпляра класса с карточками
-//     const cardList = new Section({
-//       items: cards,
-//       renderer: (item) => {
-//         const card = new Card(item, `#cards`, handleCardClick);
-//         return card.getCard();
-//       }
-//     }, ".elements__list");
+//* функция для связи Card c попапом картинки
+const handleCardClick = (objectData) => {
+  image.open(objectData);
+};
 
-//     //? создание карточек из массива
-//     cardList.renderElements();
-//   })
-//   .catch((err) => {
-//     api.infoError(`Ошибка при загрузке карточек`, err);
-//   });
+//* экземпляр класса попапа картинки
+const image = new PopupWithImage('.popup_image-open');
+image.setEventListeners();
 
-// //! запрос инфо о пользователе через сервер
-api.getUserInfo()
-  .then((userInfo) => {
-    userProfile.getServerUserInfo(userInfo);
-    userProfile.setUserInfo(userInfo);
-  })
-  .catch((err) => {
-    api.infoError(`Информация профиля с сервера не загружена`, err);
-  })
+//! функция удаления карточки
+const handleCardDelite = (card, cardId) => {
+  confirmation.open(card, cardId);
+}
+
+//! экземпляр класса попапа подтверждения
+// колбэком функция которая прокинется в класс
+const confirmation = new PopupWithSubmit('.popup_confirmation', (card, cardId) => {
+  console.log(card);
+  console.log(cardId);
+
+  api.deleteCard(cardId)
+    .then(() => {
+      console.log(`YRAAAAAAAAAAAAAAAAA`);
+      card.remove();
+      confirmation.close();
+    })
+});
+confirmation.setEventListeners();
 
 //* экземпляры классов форм
 const formValidPopupProfile = new FormValidator(popupProfile, validationConfig);
@@ -114,27 +114,6 @@ buttonAddCard.addEventListener("click", () => {
   // сброс ошибок
   formValidpopupCard.resetErorr();
 });
-
-//* экземпляр класса попапа картинки
-const image = new PopupWithImage('.popup_image-open');
-image.setEventListeners();
-
-//* функция для связи Card c попапом
-const handleCardClick = (objectData) => {
-  image.open(objectData);
-};
-
-// //создание экземпляра класса с карточками
-// const cardList = new Section({
-//   items: initialCards,
-//   renderer: (item) => {
-//     const card = new Card(item, `#cards`, handleCardClick);
-//     return card.getCard();
-//   }
-// }, ".elements__list");
-
-// // создание карточек из массива
-// cardList.renderElements(initialCards);
 
 //* включение валидаций форм
 formValidPopupProfile.enableValidation();

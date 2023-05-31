@@ -5,11 +5,13 @@ class UserInfo {
     this._profileAvatar = document.querySelector(objectSelectors.profileAvatar);
 
     this._profileInfoServer;
+    this.userId;
     // this._serverStatus;
   };
 
   getServerUserInfo = (object) => {
     this._profileInfoServer = object;
+    this.userId = object._id;
     //статус сервера
     // this._serverStatus = true;
   }

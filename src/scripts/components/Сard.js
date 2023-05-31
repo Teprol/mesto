@@ -1,7 +1,7 @@
 // import { popupOpenImage, popupImageLink, popupImageTitle, openPopup } from './index.js';
 
 class Card {
-  constructor(element, template, handleCardClick) {
+  constructor(element, template, userId, handleCardClick, handleCardDelite) {
     this._element = element;
     this._template = document.querySelector(template).content;
     this._card = this._template.querySelector(".elements__item").cloneNode(true);
@@ -12,7 +12,12 @@ class Card {
     this._likeCounter = this._card.querySelector(".element__like-count");
     this._trash = this._card.querySelector(".element__button-close");
 
+    this._userId = userId;
+    this._ownerid = this._element.owner._id;
+    this._cardId = this._element._id;
+
     this._handleCardClick = handleCardClick;
+    this._handleCardDelite = handleCardDelite;
   }
 
   //заполняет карточку данными из объекта из параметра
@@ -21,6 +26,10 @@ class Card {
     this._image.alt = this._element.name;
     this._title.textContent = this._element.name;
     this._likeCounter.textContent = this._element.likes.length;
+
+    if (this._userId !== this._ownerid) {
+      this._trash.remove();
+    }
   }
 
   // вешает на лайк класс активности
@@ -30,14 +39,12 @@ class Card {
 
   // удаляет карточку
   _handleTrashClick = () => {
-    this._card.remove();
+    // this._card.remove();
+    //перекинет в функцию 
+    this._handleCardDelite(this._card, this._cardId);
   }
 
   _handleOpenImageClick = () => {
-    // openPopup(popupOpenImage);
-    // popupImageLink.src = this._element.link;
-    // popupImageLink.alt = this._element.name;
-    // popupImageTitle.textContent = this._element.name;
     this._handleCardClick(this._element);
   }
 
@@ -54,6 +61,8 @@ class Card {
 
   //ввозращает карточку заполненую с навешенными слушателями
   getCard() {
+    // console.error(this._userId);
+    // console.log(this._creator);
     this._render();
     this._addListeners();
 
