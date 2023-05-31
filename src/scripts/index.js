@@ -14,7 +14,6 @@ import Api, { api } from './components/Api.js';
 api.getCardData()
   .then((cards) => {
     //! сейвит объект с карточками в созданном классе, далее рендерит его
-    console.log(cards);
     cardList.getCardsServer(cards.reverse());
     cardList.renderElements();
   })
