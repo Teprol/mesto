@@ -98,6 +98,38 @@ class Api {
       }
     });
   }
+
+  addLike = (idCard) => {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${idCard}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: `${this._token}`
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        console.log(idCard);
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      }
+    });
+  }
+
+  removeLike = (idCard) => {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/cards/${idCard}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: `${this._token}`
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        console.log(idCard);
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      }
+    });
+  }
 }
 
 export const api = new Api(cohort, token);

@@ -1,7 +1,7 @@
 // import { popupOpenImage, popupImageLink, popupImageTitle, openPopup } from './index.js';
 
 class Card {
-  constructor(element, template, userId, handleCardClick, handleCardDelite) {
+  constructor(element, template, userId, handleCardClick, handleCardDelite, addLike, removeLike) {
     this._element = element;
     this._template = document.querySelector(template).content;
     this._card = this._template.querySelector(".elements__item").cloneNode(true);
@@ -18,6 +18,8 @@ class Card {
 
     this._handleCardClick = handleCardClick;
     this._handleCardDelite = handleCardDelite;
+    this._addLike = addLike;
+    this._removeLike = removeLike;
   }
 
   //заполняет карточку данными из объекта из параметра
@@ -25,22 +27,40 @@ class Card {
     this._image.src = this._element.link;
     this._image.alt = this._element.name;
     this._title.textContent = this._element.name;
-    this._likeCounter.textContent = this._element.likes.length;
+
+    // показывает лайки
+    this.setLike(this._element);
 
     if (this._userId !== this._ownerid) {
       this._trash.remove();
     }
   }
 
+  setLike = ({ likes }) => {
+    this.likesArr = likes;
+    this._likeCounter.textContent = likes.length;
+
+    if (this._isLiked()) {
+      this._like.classList.add("element__like_active");
+    } else {
+      this._like.classList.remove("element__like_active");
+    }
+  };
+
+  //проверка на наличие лайка
+  _isLiked() {
+    return this.likesArr.find((userLike) => userLike._id === this._userId)
+  }
+
   // вешает на лайк класс активности
   _handleLikeClick = () => {
-    this._like.classList.toggle("element__like_active");
+    this._isLiked() ? this._removeLike(this._cardId) : this._addLike(this._cardId);
   }
 
   // удаляет карточку
   _handleTrashClick = () => {
     // this._card.remove();
-    //перекинет в функцию 
+    //перекинет в функцию
     this._handleCardDelite(this._card, this._cardId);
   }
 
@@ -61,8 +81,7 @@ class Card {
 
   //ввозращает карточку заполненую с навешенными слушателями
   getCard() {
-    // console.error(this._userId);
-    // console.log(this._creator);
+    // console.log(this._element);
     this._render();
     this._addListeners();
 

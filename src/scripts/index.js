@@ -24,7 +24,21 @@ Promise.all([api.getCardData(), api.getUserInfo()])
 //! создание экземпляра класса с карточками, колбэк метод рендера карточек
 const cardList = new Section({
   renderer: (item) => {
-    const card = new Card(item, `#cards`, userProfile.userId, handleCardClick, handleCardDelite);
+    const card = new Card(item, `#cards`, userProfile.userId, handleCardClick, handleCardDelite,
+      // ставим лайк
+      (idCard) => {
+        api.addLike(idCard)
+          .then((res) => {
+            card.setLike(res);
+          })
+      },
+      // убираем лайк
+      (idCard) => {
+        api.removeLike(idCard)
+          .then((res) => {
+            card.setLike(res);
+          })
+      });
     return card.getCard();
   }
 }, ".elements__list");
@@ -41,17 +55,13 @@ image.setEventListeners();
 //! функция удаления карточки
 const handleCardDelite = (card, cardId) => {
   confirmation.open(card, cardId);
-}
+};
 
 //! экземпляр класса попапа подтверждения
 // колбэком функция которая прокинется в класс
 const confirmation = new PopupWithSubmit('.popup_confirmation', (card, cardId) => {
-  console.log(card);
-  console.log(cardId);
-
   api.deleteCard(cardId)
     .then(() => {
-      console.log(`YRAAAAAAAAAAAAAAAAA`);
       card.remove();
       confirmation.close();
     })
