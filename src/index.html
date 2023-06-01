@@ -19,7 +19,10 @@
   <main class="main container page__main">
     <section class="profile main__profile">
       <div class="profile__container">
-        <img src="<%=require('./images/image.jpg')%>" alt="аватарка автора" class="avatar profile__avatar" />
+        <div class="profile__avatar-container">
+          <img src="<%=require('./images/image.jpg')%>" alt="аватарка автора" class="avatar profile__avatar" />
+          <button class="profile__avatar-edit" type="button" aria-label="Редактировать аватар"></button>
+        </div>
         <div class="profile-info">
           <div class="profile-info__header">
             <h1 class="profile-info__name">Жак-Ив Кусто</h1>
@@ -82,6 +85,23 @@
           </div>
         </div>
         <input class="popup__save" type="submit" value="Создать" />
+      </form>
+    </div>
+  </section>
+
+  <section class="popup popup_avatar container" aria-label="Форма смены аватарки">
+    <div class="popup__container">
+      <button class="popup__close button hover" type="button"></button>
+      <form class="popup__form" action="#" name="avatar" method="post" novalidate>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <div class="popup__input-container">
+          <div>
+            <input class="popup__input popup__input_description input" type="URL" placeholder="Ссылка на картинку"
+              name="avatar" id="input-avatar" required />
+            <span class="popup__error input-avatar-error"></span>
+          </div>
+        </div>
+        <input class="popup__save" type="submit" value="Сохранить" />
       </form>
     </div>
   </section>

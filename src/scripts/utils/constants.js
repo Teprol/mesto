@@ -16,6 +16,10 @@ export const buttonEditPopup = document.querySelector(".edit-button");
 export const popupCard = document.querySelector(".popup_card");
 // кнопка добавления карточки
 export const buttonAddCard = document.querySelector(".profile__add-button");
+// попап смены аватарки
+export const popupAvatarNode = document.querySelector(".popup_avatar");
+// кнопка смены аватарки
+export const buttonAvatar = document.querySelector(".profile__avatar-edit");
 // объект с селекторами полей профиля
 export const objectSelectors = {
   profileDescription: ".profile-info__description",

@@ -130,6 +130,25 @@ class Api {
       }
     });
   }
+
+  newAvatar = ({avatar}) => {
+    return fetch(`https://mesto.nomoreparties.co/v1/${this._cohortId}/users/me/avatar `, {
+      method: 'PATCH',
+      headers: {
+        authorization: `${this._token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Что-то пошло не так: ${res.status}`);
+      }
+    });
+  };
 }
 
 export const api = new Api(cohort, token);
