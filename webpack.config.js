@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // плагин 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // подключили к проекту mini-css-extract-plugin
 
 module.exports = {
-  entry: { main: './src/scripts/index.js' }, //вход
+  entry: { main: './src/pages/index.js' }, //вход
   output: { //выход
     path: path.resolve(__dirname, 'dist'), //путь
     filename: 'main.js', //имя итог файла

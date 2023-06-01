@@ -1,14 +1,14 @@
 import '../pages/index.css'; //подключаем главный файл css
-import Card from './components/Сard.js';
-import FormValidator from './components/FormValidator.js';
-import Section from './components/Section.js';
-import Popup from './components/Popup.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import PopupWithSubmit from './components/PopupWithSubmit.js'
-import UserInfo from './components/UserInfo.js';
-import { validationConfig, popupProfile, buttonEditPopup, popupCard, buttonAddCard, objectSelectors, buttonAvatar, popupAvatarNode } from './utils/constants.js';
-import Api, { api } from './components/Api.js';
+import Card from '../scripts/components/Сard.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import Section from '../scripts/components/Section.js';
+import Popup from '../scripts/components/Popup.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js'
+import UserInfo from '../scripts/components/UserInfo.js';
+import { validationConfig, popupProfile, buttonEditPopup, popupCard, buttonAddCard, objectSelectors, buttonAvatar, popupAvatarNode } from '../scripts/utils/constants.js';
+import Api, { api } from '../scripts/components/Api.js';
 
 Promise.all([api.getCardData(), api.getUserInfo()])
   .then(([cards, userInfo]) => {
@@ -31,6 +31,8 @@ const cardList = new Section({
         api.addLike(idCard)
           .then((res) => {
             card.setLike(res);
+          }).catch((err) => {
+            api.infoError(`Лайк не поставился`, err);
           })
       },
       // убираем лайк
@@ -38,6 +40,8 @@ const cardList = new Section({
         api.removeLike(idCard)
           .then((res) => {
             card.setLike(res);
+          }).catch((err) => {
+            api.infoError(`Лайк не удален`, err);
           })
       });
     return card.getCard();
@@ -65,6 +69,8 @@ const confirmation = new PopupWithSubmit('.popup_confirmation', (card, cardId) =
     .then(() => {
       card.remove();
       confirmation.close();
+    }).catch((err) => {
+      api.infoError(`Карточка не удалена`, err);
     })
 });
 confirmation.setEventListeners();
@@ -78,58 +84,54 @@ const formValidPopupAvatar = new FormValidator(popupAvatarNode, validationConfig
 const userProfile = new UserInfo(objectSelectors);
 
 //* экземпляр класса попап профиля
-const popupProfile1 = new PopupWithForm('.popup_profile', (evt) => {
+const popupProfileClass = new PopupWithForm('.popup_profile', (evt) => {
   evt.preventDefault();
-
+  popupProfileClass.loadingServer();
   //!изминение инфы пользователя
-  api.setUserInfo(popupProfile1.getInputValues())
+  api.setUserInfo(popupProfileClass.getInputValues())
     .then((serverInfoUser) => {
-      popupProfile1.loadingServer();
       userProfile.setUserInfo(serverInfoUser);
-      // popupProfile1.close();
+      popupProfileClass.close();
     })
     .catch((err) => {
       api.infoError(`Информация профиля не обнавлена`, err);
-      userProfile.setUserInfo(popupProfile1.getInputValues());
-      popupProfile1.close();
+      userProfile.setUserInfo(popupProfileClass.getInputValues());
     }).finally(() => {
-      popupProfile1.FinishloadingServer();
-      popupProfile1.close();
+      popupProfileClass.FinishloadingServer();
     })
 });
-popupProfile1.setEventListeners();
+popupProfileClass.setEventListeners();
 
 // открытие попапа профиля
 buttonEditPopup.addEventListener("click", () => {
-  popupProfile1.open();
-  popupProfile1.setInputValues(userProfile.getUserInfo());
+  popupProfileClass.open();
+  popupProfileClass.setInputValues(userProfile.getUserInfo());
   // сброс ошибок
   formValidPopupProfile.resetErorr();
 });
 
 //* экземпляр класса попап создания карточки
-const popupCard1 = new PopupWithForm('.popup_card', (evt) => {
+const popupCardClass = new PopupWithForm('.popup_card', (evt) => {
   evt.preventDefault();
-
+  popupCardClass.loadingServer();
   //! заливаем карточку на сервер
-  api.setCardUser(popupCard1.getInputValues())
+  api.setCardUser(popupCardClass.getInputValues())
     .then((card) => {
-      popupCard1.loadingServer();
       cardList.addItem(cardList.renderer(card));
+      popupCardClass.close();
     })
     .catch((err) => {
       api.infoError(`Карточка не отправлена`, err);
-      cardList.addItem(cardList.renderer(popupCard1.getInputValues()));
+      cardList.addItem(cardList.renderer(popupCardClass.getInputValues()));
     }).finally(() => {
-      popupCard1.FinishloadingServer();
-      popupCard1.close();
+      popupCardClass.FinishloadingServer();
     })
 });
-popupCard1.setEventListeners();
+popupCardClass.setEventListeners();
 
 // открытие попапа создания карточек
 buttonAddCard.addEventListener("click", () => {
-  popupCard1.open();
+  popupCardClass.open();
   // сброс ошибок
   formValidpopupCard.resetErorr();
 });
@@ -137,16 +139,16 @@ buttonAddCard.addEventListener("click", () => {
 //* экземпляр класса попапа смены аватарки
 const popupAvatar = new PopupWithForm('.popup_avatar', (evt) => {
   evt.preventDefault();
+  popupAvatar.loadingServer();
   api.newAvatar(popupAvatar.getInputValues())
     .then((userInfo) => {
-      popupAvatar.loadingServer();
       userProfile.getServerUserInfo(userInfo);
       userProfile.setUserInfo(userInfo);
+      popupAvatar.close();
     }).catch((err) => {
       api.infoError(`Не удалось сменить аватарку`, err);
     }).finally(() => {
       popupAvatar.FinishloadingServer();
-      popupAvatar.close();
     })
 });
 popupAvatar.setEventListeners();
